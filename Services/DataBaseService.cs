@@ -16,15 +16,27 @@ namespace ElBarDePili.Services
             {
                 new Receta()
                 {
-                    Nombre = "Potaje de San José"
+                    Nombre = "Potaje de San José",
+                    Descripcion = "Madrileña",
+                    Imagen = "potajesanjose.jpg",
+                    Duracion = TimeSpan.FromMinutes(60),
+                    Dificultad = 9
                 },
                 new Receta()
                 {
-                    Nombre = "Gazpacho"
+                    Nombre = "Gazpacho",
+                    Descripcion = "Andaluza",
+                    Imagen = "gazpacho.png",
+                    Duracion = TimeSpan.FromMinutes(25),
+                    Dificultad = 7
                 },
                 new Receta()
                 {
-                    Nombre = "Croquetitas de la chef"
+                    Nombre = "Croquetitas de la chef",
+                    Descripcion = "Española",
+                    Imagen = "croquetas.png",
+                    Duracion = TimeSpan.FromMinutes(45),
+                    Dificultad = 6
                 }
             };
         }

@@ -7,14 +7,39 @@
              x:DataType="viewmodel:RecetasViewModel"
              Title="{Binding Title}">
 
-    <ScrollView>
-        <CollectionView ItemsSource="{Binding Recetas}">
+    <Grid RowDefinitions="*, Auto">
+
+        <CollectionView BackgroundColor="Red"
+                        Grid.Row="0"
+                        ItemsSource="{Binding Recetas}">
+
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Receta">
-                    <Label Text="{Binding Nombre}"></Label>
+                    <Frame HeightRequest="125" Margin="5">
+                        <Grid ColumnDefinitions="*,*,*" Padding="10" RowSpacing="10" BackgroundColor="Yellow">
+                            <Image BackgroundColor="Green"
+                                   Aspect="AspectFill"
+                                   HeightRequest="125"
+                                   WidthRequest="125"
+                                   Grid.Column="0"
+                                   Source="{Binding Imagen}"></Image>
+                            <Label Grid.Column="1" Text="{Binding Nombre}"></Label>
+                            <Label Grid.Column="2" Text="{Binding Dificultad}"></Label>
+                        </Grid>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            
         </CollectionView>
-    </ScrollView>
+
+        <Button 
+                x:Name="ActualizaRecetasBtn"
+                Text="ActualizaRecetas"
+                Command="{Binding ActualizaRecetasBtnCommand}"
+                BackgroundColor="Purple"
+                Grid.Row="1">
+        </Button>
+
+    </Grid>
     
 </ContentPage>

@@ -1,4 +1,5 @@
-﻿using ElBarDePili.Models;
+﻿using CommunityToolkit.Mvvm.Input;
+using ElBarDePili.Models;
 using ElBarDePili.Services;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace ElBarDePili.ViewModels
 {
-    public class RecetasViewModel : BaseViewModel
+    public partial class RecetasViewModel : BaseViewModel
     {
         private DataBaseService _dataBaseService;
+
         public ObservableCollection<Receta> Recetas { get; set; }
 
         public RecetasViewModel(DataBaseService dataBaseService)
@@ -22,6 +24,15 @@ namespace ElBarDePili.ViewModels
             
             Recetas = new ObservableCollection<Receta>();
             GetRecetas();
+        }
+
+        [RelayCommand]
+        public void ActualizaRecetasBtn()
+        {
+            Title = "Actualiza Recetas";
+            Recetas[0].Dificultad = 10;
+            Recetas[1].Dificultad = 10;
+            Recetas[2].Dificultad = 10;
         }
 
         private void GetRecetas()

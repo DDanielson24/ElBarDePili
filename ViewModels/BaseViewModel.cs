@@ -11,5 +11,6 @@ namespace ElBarDePili.ViewModels
     {
         [ObservableProperty]
         private string _title;
+
     }
 }
