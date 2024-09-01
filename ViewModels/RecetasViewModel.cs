@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using ElBarDePili.Models;
 using ElBarDePili.Services;
+using ElBarDePili.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,12 +28,16 @@ namespace ElBarDePili.ViewModels
         }
 
         [RelayCommand]
-        public void ActualizaRecetasBtn()
+        public void GoToRecetasDetails(Receta receta)
         {
-            Title = "Actualiza Recetas";
-            Recetas[0].Dificultad = 10;
-            Recetas[1].Dificultad = 10;
-            Recetas[2].Dificultad = 10;
+            if (receta == null)
+                return;
+
+            Shell.Current.GoToAsync(nameof(RecetasDetails), true,
+                new Dictionary<string, object>
+                {
+                    {"Receta", receta}
+                });
         }
 
         private void GetRecetas()

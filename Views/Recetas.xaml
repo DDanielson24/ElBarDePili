@@ -9,36 +9,35 @@
 
     <Grid RowDefinitions="*, Auto">
 
-        <CollectionView BackgroundColor="Red"
-                        Grid.Row="0"
+        <CollectionView Grid.Row="0"
                         ItemsSource="{Binding Recetas}">
 
             <CollectionView.ItemTemplate>
+
                 <DataTemplate x:DataType="model:Receta">
                     <Frame HeightRequest="125" Margin="5">
-                        <Grid ColumnDefinitions="*,*,*" Padding="10" RowSpacing="10" BackgroundColor="Yellow">
-                            <Image BackgroundColor="Green"
-                                   Aspect="AspectFill"
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecetasViewModel}}, Path=GoToRecetasDetailsCommand}"/>
+                        </Frame.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="10">
+                            <Image Aspect="AspectFill"
                                    HeightRequest="125"
                                    WidthRequest="125"
                                    Grid.Column="0"
-                                   Source="{Binding Imagen}"></Image>
-                            <Label Grid.Column="1" Text="{Binding Nombre}"></Label>
-                            <Label Grid.Column="2" Text="{Binding Dificultad}"></Label>
-                        </Grid>
+                                   Source="{Binding Imagen}"/>
+                            <Grid RowDefinitions="*,*"
+                                  ColumnDefinitions="*">
+                                <Label Grid.Row="0" Text="{Binding Nombre}"/>
+                                <Label Grid.Row="1" Text="{Binding Descripcion}"/>
+                            </Grid>
+                        </HorizontalStackLayout>
                     </Frame>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-            
-        </CollectionView>
 
-        <Button 
-                x:Name="ActualizaRecetasBtn"
-                Text="ActualizaRecetas"
-                Command="{Binding ActualizaRecetasBtnCommand}"
-                BackgroundColor="Purple"
-                Grid.Row="1">
-        </Button>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
 
     </Grid>
     

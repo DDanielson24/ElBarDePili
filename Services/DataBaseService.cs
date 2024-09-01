@@ -17,7 +17,7 @@ namespace ElBarDePili.Services
                 new Receta()
                 {
                     Nombre = "Potaje de San José",
-                    Descripcion = "Madrileña",
+                    Descripcion = "De la abuela Juana",
                     Imagen = "potajesanjose.jpg",
                     Duracion = TimeSpan.FromMinutes(60),
                     Dificultad = 9

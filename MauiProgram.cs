@@ -1,6 +1,7 @@
 ﻿using ElBarDePili.Services;
 using ElBarDePili.ViewModels;
 using ElBarDePili.Views;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace ElBarDePili
@@ -20,10 +21,14 @@ namespace ElBarDePili
 
             builder.Services.AddSingleton<DataBaseService>();
 
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<MainPageViewModel>();
+
             builder.Services.AddSingleton<Recetas>();
             builder.Services.AddSingleton<RecetasViewModel>();
 
-            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddTransient<RecetasDetails>();
+            builder.Services.AddTransient<RecetasDetailsViewModel>();
 
 #if DEBUG
     		builder.Logging.AddDebug();

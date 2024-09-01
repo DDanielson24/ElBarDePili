@@ -9,6 +9,7 @@ namespace ElBarDePili
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(Recetas), typeof(Recetas));
+            Routing.RegisterRoute(nameof(RecetasDetails), typeof(RecetasDetails));
         }
     }
 }

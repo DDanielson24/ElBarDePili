@@ -10,7 +10,9 @@ namespace ElBarDePili.Models
     public partial class Receta : ObservableObject
     {
         public Guid Id { get; set; }
-        public string Nombre { get; set; }
+
+        [ObservableProperty]
+        private string _nombre;
         public string Descripcion { get; set; }
         public string Imagen {  get; set; }
         public TimeSpan Duracion { get; set; }

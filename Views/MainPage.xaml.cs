@@ -6,14 +6,10 @@ namespace ElBarDePili
     public partial class MainPage : ContentPage
     {
 
-        public MainPage(RecetasViewModel recetasViewModel)
+        public MainPage(MainPageViewModel mainPageViewModel)
         {
             InitializeComponent();
-        }
-
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
-            Shell.Current.GoToAsync($"{nameof(Recetas)}");
+            BindingContext = mainPageViewModel;
         }
     }
 
