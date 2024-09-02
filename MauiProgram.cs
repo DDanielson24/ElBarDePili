@@ -30,6 +30,9 @@ namespace ElBarDePili
             builder.Services.AddTransient<RecetasDetails>();
             builder.Services.AddTransient<RecetasDetailsViewModel>();
 
+            builder.Services.AddTransient<RecetasEditing>();
+            builder.Services.AddTransient<RecetasEditingViewModel>();
+
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif

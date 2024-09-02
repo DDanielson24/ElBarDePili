@@ -27,8 +27,13 @@ namespace ElBarDePili.ViewModels
             GetRecetas();
         }
 
+        private void GetRecetas()
+        {
+            Recetas = _dataBaseService.GetRecetas();
+        }
+
         [RelayCommand]
-        public void GoToRecetasDetails(Receta receta)
+        private void GoToRecetasDetails(Receta receta)
         {
             if (receta == null)
                 return;
@@ -38,11 +43,6 @@ namespace ElBarDePili.ViewModels
                 {
                     {"Receta", receta}
                 });
-        }
-
-        private void GetRecetas()
-        {
-            Recetas = _dataBaseService.GetRecetas();
-        }
+        }        
     }
 }

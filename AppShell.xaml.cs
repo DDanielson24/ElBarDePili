@@ -10,6 +10,7 @@ namespace ElBarDePili
 
             Routing.RegisterRoute(nameof(Recetas), typeof(Recetas));
             Routing.RegisterRoute(nameof(RecetasDetails), typeof(RecetasDetails));
+            Routing.RegisterRoute(nameof(RecetasEditing), typeof(RecetasEditing));
         }
     }
 }

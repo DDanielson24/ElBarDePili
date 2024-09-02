@@ -22,13 +22,13 @@ namespace ElBarDePili.ViewModels
         [RelayCommand]
         public void GoToIngredientesSection() 
         {
-            Application.Current?.MainPage?.DisplayAlert("Próximamente", "Esta sección aún no está implementada.", "De acuerdo");
+            Shell.Current.DisplayAlert("Próximamente", "Esta sección aún no está implementada.", "De acuerdo");
         }
 
         [RelayCommand]
         public void GoToConfiguracionSection() 
         {
-            Application.Current?.MainPage?.DisplayAlert("Próximamente", "Esta sección aún no está implementada.", "De acuerdo");
+            Shell.Current.DisplayAlert("Próximamente", "Esta sección aún no está implementada.", "De acuerdo");
         }
     }
 }
