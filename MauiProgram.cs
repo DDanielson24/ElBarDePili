@@ -1,4 +1,4 @@
-﻿using ElBarDePili.Services;
+﻿using ElBarDePili.Database;
 using ElBarDePili.ViewModels;
 using ElBarDePili.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +19,7 @@ namespace ElBarDePili
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddSingleton<DataBaseService>();
+            builder.Services.AddSingleton<ElBarDePiliDatabase>();
 
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainPageViewModel>();

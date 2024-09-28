@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace ElBarDePili.Models
 {
+    [Table("Receta")]
     public partial class Receta : ObservableObject
     {
+        [PrimaryKey]
         public Guid Id { get; set; }
 
         [ObservableProperty]

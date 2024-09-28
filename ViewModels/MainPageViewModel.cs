@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ElBarDePili.Database;
 using ElBarDePili.Views;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,19 @@ namespace ElBarDePili.ViewModels
 {
     public partial class MainPageViewModel : BaseViewModel
     {
-        public MainPageViewModel() { }
+        private readonly ElBarDePiliDatabase _elBarDePiliDatabase;
+
+        public MainPageViewModel(ElBarDePiliDatabase elBarDePiliDatabase) 
+        {
+            _elBarDePiliDatabase = elBarDePiliDatabase;
+        }
 
         [RelayCommand]
-        public void GoToRecetasSection() 
+        public async void GoToRecetasSection() 
         {
+            var t = await _elBarDePiliDatabase.GetRecetas();
+            var t2 = await _elBarDePiliDatabase.GetIngredientes();
+
             Shell.Current.GoToAsync(nameof(Recetas));
         }
 
