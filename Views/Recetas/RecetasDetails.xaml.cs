@@ -1,7 +1,7 @@
 using ElBarDePili.Models;
 using ElBarDePili.ViewModels.Recetas;
 
-namespace ElBarDePili.Views;
+namespace ElBarDePili.Views.Recetas;
 
 public partial class RecetasDetails : ContentPage
 {

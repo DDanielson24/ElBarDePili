@@ -65,6 +65,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\Recetas\RecetasList.xaml.cs">
+	    <DependentUpon>RecetasList.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Views\Ingredientes\AniadirIngrediente.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

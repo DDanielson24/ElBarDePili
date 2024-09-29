@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:ElBarDePili.Models"
              xmlns:viewmodel="clr-namespace:ElBarDePili.ViewModels.Recetas"
-             x:Class="ElBarDePili.Views.Recetas"
+             x:Class="ElBarDePili.Views.Recetas.RecetasList"
              x:DataType="viewmodel:RecetasViewModel"
              Title="{Binding Title}">
 

@@ -3,6 +3,8 @@ using ElBarDePili.ViewModels;
 using ElBarDePili.ViewModels.Ingredientes;
 using ElBarDePili.ViewModels.Recetas;
 using ElBarDePili.Views;
+using ElBarDePili.Views.Recetas;
+using ElBarDePili.Views.Ingredientes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -26,7 +28,7 @@ namespace ElBarDePili
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainPageViewModel>();
 
-            builder.Services.AddSingleton<Recetas>();
+            builder.Services.AddSingleton<RecetasList>();
             builder.Services.AddSingleton<RecetasViewModel>();
 
             builder.Services.AddTransient<RecetasDetails>();
@@ -35,8 +37,14 @@ namespace ElBarDePili
             builder.Services.AddTransient<RecetasEditing>();
             builder.Services.AddTransient<RecetasEditingViewModel>();
 
+            builder.Services.AddSingleton<IngredientesList>();
+            builder.Services.AddSingleton<IngredientesViewModel>();
+
+            builder.Services.AddTransient<AniadirIngrediente>();
+            builder.Services.AddTransient<AniadirIngredienteViewModel>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

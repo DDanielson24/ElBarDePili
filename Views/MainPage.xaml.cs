@@ -1,7 +1,7 @@
 ﻿using ElBarDePili.Views;
 using ElBarDePili.ViewModels;
 
-namespace ElBarDePili
+namespace ElBarDePili.Views
 {
     public partial class MainPage : ContentPage
     {

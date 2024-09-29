@@ -4,14 +4,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ElBarDePili"
-    xmlns:view="clr-namespace:ElBarDePili.Views"
+    xmlns:views="clr-namespace:ElBarDePili.Views"
     Shell.FlyoutBehavior="Disabled"
     Shell.BackgroundColor="Pink"
     Title="ElBarDePili">
 
     <ShellContent
         Title="Inicio"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate views:MainPage}"
         Route="MainPage" />
 
 </Shell>

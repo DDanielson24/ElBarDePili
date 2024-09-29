@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using ElBarDePili.Database;
 using ElBarDePili.Models;
+using ElBarDePili.Views.Ingredientes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,9 +38,13 @@ namespace ElBarDePili.ViewModels.Ingredientes
         {
             await _elBarDePiliDatabase.UpdateAll(Ingredientes);
 
-            await Shell.Current.Navigation.PopAsync();
-
             await Shell.Current.DisplayAlert("Guardado", "Los ingredientes han sido guardados correctamente.", "De acuerdo");
+        }
+
+        [RelayCommand]
+        private void GoToAniadirIngrediente()
+        {
+            Shell.Current.GoToAsync(nameof(AniadirIngrediente), true);
         }
     }
 }

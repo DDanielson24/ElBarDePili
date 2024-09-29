@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using ElBarDePili.Models;
 using ElBarDePili.Views;
+using ElBarDePili.Views.Recetas;
 using System;
 using System.Collections.Generic;
 using System.Linq;

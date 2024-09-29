@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using ElBarDePili.Database;
 using ElBarDePili.Views;
+using ElBarDePili.Views.Ingredientes;
+using ElBarDePili.Views.Recetas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +24,13 @@ namespace ElBarDePili.ViewModels
         [RelayCommand]
         public void GoToRecetasSection() 
         {
-            Shell.Current.GoToAsync(nameof(Recetas));
+            Shell.Current.GoToAsync(nameof(RecetasList));
         }
 
         [RelayCommand]
         public void GoToIngredientesSection() 
         {
-            Shell.Current.GoToAsync(nameof(Ingredientes));
+            Shell.Current.GoToAsync(nameof(IngredientesList));
         }
 
         [RelayCommand]

@@ -48,7 +48,7 @@ namespace ElBarDePili.Database
         
         public async Task<List<Ingrediente>> GetIngredientes()
         {
-            return await Database.Table<Ingrediente>().ToListAsync();
+            return await Database.Table<Ingrediente>().OrderBy(x => x.Nombre).ToListAsync();
         }
     }
 }

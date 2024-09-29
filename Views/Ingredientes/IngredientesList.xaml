@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:ElBarDePili.Models"
+             xmlns:viewmodel="clr-namespace:ElBarDePili.ViewModels.Ingredientes"
+             x:Class="ElBarDePili.Views.Ingredientes.IngredientesList"
+             x:DataType="viewmodel:IngredientesViewModel"
+             Title="{Binding Title}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Actualizar disponibilidad"
+                 Command="{Binding SaveIngredientesCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="*, Auto">
+
+        <CollectionView Grid.Row="0" 
+                        ItemsSource="{Binding Ingredientes}">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="model:Ingrediente">
+                    <Grid ColumnDefinitions="*,*" RowSpacing="10">
+                        <Label Text="{Binding Nombre}" 
+                                   Grid.Column="0" 
+                                   VerticalTextAlignment="Center"
+                                   HorizontalTextAlignment="Center"/>
+                        <CheckBox Grid.Column="1" IsChecked="{Binding SeDispone}"/>
+                    </Grid>
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <Button Text="Añadir ingrediente"
+                Grid.Row="1"
+                Margin="10"
+                Command="{Binding GoToAniadirIngredienteCommand}"/>
+
+    </Grid>
+
+</ContentPage>
