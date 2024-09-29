@@ -20,7 +20,9 @@ namespace ElBarDePili.Models
         [ObservableProperty]
         private string _descripcion;
         public string Imagen {  get; set; }
-        public TimeSpan Duracion { get; set; }
+
+        [ObservableProperty]
+        private TimeSpan _duracion;
 
         [ObservableProperty]
         private int _dificultad = 0;

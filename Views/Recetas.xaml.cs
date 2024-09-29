@@ -1,4 +1,4 @@
-using ElBarDePili.ViewModels;
+using ElBarDePili.ViewModels.Recetas;
 
 namespace ElBarDePili.Views;
 

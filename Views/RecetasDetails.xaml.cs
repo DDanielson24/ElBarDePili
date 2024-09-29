@@ -1,5 +1,5 @@
 using ElBarDePili.Models;
-using ElBarDePili.ViewModels;
+using ElBarDePili.ViewModels.Recetas;
 
 namespace ElBarDePili.Views;
 

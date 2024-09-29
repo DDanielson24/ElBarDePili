@@ -20,18 +20,15 @@ namespace ElBarDePili.ViewModels
         }
 
         [RelayCommand]
-        public async void GoToRecetasSection() 
+        public void GoToRecetasSection() 
         {
-            var t = await _elBarDePiliDatabase.GetRecetas();
-            var t2 = await _elBarDePiliDatabase.GetIngredientes();
-
             Shell.Current.GoToAsync(nameof(Recetas));
         }
 
         [RelayCommand]
         public void GoToIngredientesSection() 
         {
-            Shell.Current.DisplayAlert("Próximamente", "Esta sección aún no está implementada.", "De acuerdo");
+            Shell.Current.GoToAsync(nameof(Ingredientes));
         }
 
         [RelayCommand]

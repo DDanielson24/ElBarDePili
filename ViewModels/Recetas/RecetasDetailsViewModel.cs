@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElBarDePili.ViewModels
+namespace ElBarDePili.ViewModels.Recetas
 {
     [QueryProperty(nameof(Receta), "Receta")]
     public partial class RecetasDetailsViewModel : BaseViewModel

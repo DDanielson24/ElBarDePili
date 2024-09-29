@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using ElBarDePili.Database;
 using ElBarDePili.Models;
 using ElBarDePili.Views;
 using System;
@@ -8,23 +10,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElBarDePili.ViewModels
+namespace ElBarDePili.ViewModels.Recetas
 {
     public partial class RecetasViewModel : BaseViewModel
     {        
-        public ObservableCollection<Receta> Recetas { get; set; }
+        private readonly ElBarDePiliDatabase _elBarDePiliDatabase;
 
-        public RecetasViewModel()
+        [ObservableProperty]
+        private ObservableCollection<Receta> _recetas = new ();
+
+        public RecetasViewModel(ElBarDePiliDatabase elBarDePiliDatabase)
         {
+            _elBarDePiliDatabase = elBarDePiliDatabase;
             Title = "Recetas";
-            
-            Recetas = new ObservableCollection<Receta>();
-            GetRecetas();
+
+            GetRecetasAsync();
         }
 
-        private void GetRecetas()
+        private async Task GetRecetasAsync()
         {
-            
+            Recetas = new ObservableCollection<Receta>(await _elBarDePiliDatabase.GetRecetas());
         }
 
         [RelayCommand]

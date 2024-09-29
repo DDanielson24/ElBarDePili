@@ -19,57 +19,35 @@ namespace ElBarDePili.Database
 
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
 
-            Init();
-        }
-
-        private async Task Init()
-        {
-            await Database.DropTableAsync<Receta>();
-            await Database.CreateTableAsync<Receta>();
-
-            await Database.DropTableAsync<Ingrediente>();
-            await Database.CreateTableAsync<Ingrediente>();
-
-            await Database.InsertAsync(new Ingrediente()
-            {
-                Nombre = "Jamón"
-            });
-
-            await Database.InsertAsync(new Ingrediente()
-            {
-                Nombre = "Pimiento"
-            });
-
-            await Database.InsertAsync(new Receta()
-            {
-                Nombre = "Tortilla"
-            });
-
-            await Database.InsertAsync(new Receta()
-            {
-                Nombre = "Huevos revueltos"
-            });
+            Database.CreateTableAsync<Receta>();
+            Database.CreateTableAsync<Ingrediente>();
         }
 
         public async Task<int> Add(object o)
         {
-            await Init();
-
             var n = await Database.InsertAsync(o);
+            return n;
+        }
+
+        public async Task<int> Update(object o)
+        {
+            var n = await Database.UpdateAsync(o);
+            return n;
+        }
+
+        public async Task<int> UpdateAll(IEnumerable<object> o)
+        {
+            var n = await Database.UpdateAllAsync(o);
             return n;
         }
 
         public async Task<List<Receta>> GetRecetas()
         {
-            await Init();
-
             return await Database.Table<Receta>().ToListAsync();
         }
         
         public async Task<List<Ingrediente>> GetIngredientes()
         {
-            await Init();
-
             return await Database.Table<Ingrediente>().ToListAsync();
         }
     }

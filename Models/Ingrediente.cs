@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 namespace ElBarDePili.Models
 {
     [Table("Ingrediente")]
-    public class Ingrediente : ObservableObject
+    public partial class Ingrediente : ObservableObject
     {
         [PrimaryKey]
         public Guid Id { get; set; }
         public string Nombre { get; set; }
+
+        [ObservableProperty]
+        private bool _seDispone;
 
         public Ingrediente()
         {
