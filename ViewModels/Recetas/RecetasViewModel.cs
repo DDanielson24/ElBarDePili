@@ -33,16 +33,52 @@ namespace ElBarDePili.ViewModels.Recetas
         }
 
         [RelayCommand]
-        private void GoToRecetasDetails(Receta receta)
+        private async void GoToRecetasDetails(Receta receta)
         {
             if (receta == null)
                 return;
 
+            var ingredientes = (await _elBarDePiliDatabase.GetIngredientes()).ToList();
+
+            List<IngredientesReceta> ingredientesReceta = new();
+            foreach (var ingrediente in ingredientes)
+            {
+                ingredientesReceta.Add(new IngredientesReceta()
+                {
+                    Ingrediente = ingrediente,
+                    FormaParteReceta = false
+                });
+            }
+
             Shell.Current.GoToAsync(nameof(RecetasDetails), true,
                 new Dictionary<string, object>
                 {
-                    {"Receta", receta}
+                    {"Receta", receta},
+                    {"IngredientesReceta", ingredientesReceta}
                 });
-        }        
+        }
+
+        [RelayCommand]
+        private async void GoToAniadirReceta()
+        {
+            var ingredientes = (await _elBarDePiliDatabase.GetIngredientes()).ToList();
+
+            List<IngredientesReceta> ingredientesReceta = new ();
+            foreach (var ingrediente in ingredientes)
+            {
+                ingredientesReceta.Add(new IngredientesReceta()
+                {
+                    Ingrediente = ingrediente,
+                    FormaParteReceta = false
+                });   
+            }
+
+            Shell.Current.GoToAsync(nameof(RecetasEditing), true,
+                new Dictionary<string, object>
+                {
+                    {"Receta", new Receta()},
+                    {"IngredientesReceta", ingredientesReceta}
+                });
+        }
     }
 }

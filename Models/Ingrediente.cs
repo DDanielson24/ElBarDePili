@@ -13,7 +13,9 @@ namespace ElBarDePili.Models
     {
         [PrimaryKey]
         public Guid Id { get; set; }
-        public string Nombre { get; set; }
+
+        [ObservableProperty]
+        private string _nombre;
 
         [ObservableProperty]
         private bool _seDispone;
@@ -21,6 +23,8 @@ namespace ElBarDePili.Models
         public Ingrediente()
         {
             Id = Guid.NewGuid();
+            Nombre = String.Empty;
+            SeDispone = false;
         }
     }
 }

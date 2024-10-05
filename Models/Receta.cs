@@ -1,10 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SQLiteNetExtensions.Attributes;
 
 namespace ElBarDePili.Models
 {
@@ -19,17 +15,24 @@ namespace ElBarDePili.Models
 
         [ObservableProperty]
         private string _descripcion;
-        public string Imagen {  get; set; }
 
         [ObservableProperty]
-        private TimeSpan _duracion;
+        private string _imagen;
 
         [ObservableProperty]
-        private int _dificultad = 0;
+        private int _duracion;
+
+        [ObservableProperty]
+        private int _dificultad;
 
         public Receta()
         {
             Id = Guid.NewGuid();
+            Nombre = String.Empty;
+            Descripcion = String.Empty;
+            Imagen = String.Empty;
+            Duracion = 0;
+            Dificultad = 0;
         }
 
     }

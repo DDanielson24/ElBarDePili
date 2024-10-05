@@ -39,6 +39,11 @@
 
         </CollectionView>
 
+        <Button Text="Añadir receta"
+                Grid.Row="1"
+                Margin="10"
+                Command="{Binding GoToAniadirRecetaCommand}"/>
+
     </Grid>
     
 </ContentPage>

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:ElBarDePili.Models"
              xmlns:viewmodel="clr-namespace:ElBarDePili.ViewModels.Recetas"
+             xmlns:general="clr-namespace:ElBarDePili.General"
              x:Class="ElBarDePili.Views.Recetas.RecetasEditing"
              x:DataType="viewmodel:RecetasEditingViewModel"
              Title="{Binding Receta.Nombre}">
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Guardar"
                      Command="{Binding SaveEditingCommand}"
@@ -22,6 +24,7 @@
                 </Label.FormattedText>
             </Label>
             <Entry Text="{Binding Receta.Nombre}" />
+            
             <Label>
                 <Label.FormattedText>
                     <FormattedString>
@@ -30,6 +33,68 @@
                 </Label.FormattedText>
             </Label>
             <Entry Text="{Binding Receta.Descripcion}" />
+            
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Dificultad" FontAttributes="Bold" FontSize="16"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Picker SelectedItem="{Binding Receta.Dificultad}">
+                <Picker.Items>
+                    <x:String>0</x:String>
+                    <x:String>1</x:String>
+                    <x:String>2</x:String>
+                    <x:String>3</x:String>
+                    <x:String>4</x:String>
+                    <x:String>5</x:String>
+                    <x:String>6</x:String>
+                    <x:String>7</x:String>
+                    <x:String>8</x:String>
+                    <x:String>9</x:String>
+                    <x:String>10</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Duración" FontAttributes="Bold" FontSize="16"></Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Entry Text="{Binding Receta.Duracion}"
+                   Keyboard="Numeric"/>
+
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Ingredientes " FontAttributes="Bold" FontSize="16"></Span>
+                        <Span Text="(marcar los necesarios)"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <CollectionView Grid.Row="0" 
+                ItemsSource="{Binding IngredientesReceta}">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate x:DataType="model:IngredientesReceta">
+                        <Grid ColumnDefinitions="*,*" RowSpacing="10">
+                            <Label Text="{Binding Ingrediente.Nombre}" 
+                               Grid.Column="0" 
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"/>
+                            <CheckBox Grid.Column="1" IsChecked="{Binding FormaParteReceta}"/>
+                        </Grid>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
         </VerticalStackLayout>    
     </ScrollView>
         
