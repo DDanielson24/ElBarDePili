@@ -20,13 +20,23 @@
             <CollectionView.ItemTemplate>
 
                 <DataTemplate x:DataType="model:Ingrediente">
-                    <Grid ColumnDefinitions="*,*" RowSpacing="10">
-                        <Label Text="{Binding Nombre}" 
+
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItem Text="Eliminar" BackgroundColor="Red"
+                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:IngredientesViewModel}}, Path=DeleteIngredienteCommand}"
+                                   CommandParameter="{Binding .}"/>
+                            </SwipeView.RightItems>
+
+                            <Grid ColumnDefinitions="*,*" RowSpacing="10">
+                                <Label Text="{Binding Nombre}" 
                                    Grid.Column="0" 
                                    VerticalTextAlignment="Center"
                                    HorizontalTextAlignment="Center"/>
-                        <CheckBox Grid.Column="1" IsChecked="{Binding SeDispone}"/>
-                    </Grid>
+                                <CheckBox Grid.Column="1" IsChecked="{Binding SeDispone}"/>
+                            </Grid>
+                        </SwipeView>
+
                 </DataTemplate>
 
             </CollectionView.ItemTemplate>

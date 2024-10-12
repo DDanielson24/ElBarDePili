@@ -48,5 +48,12 @@ namespace ElBarDePili.ViewModels.Ingredientes
         {
             Shell.Current.GoToAsync(nameof(AniadirIngrediente), true);
         }
+
+        [RelayCommand]
+        private async Task DeleteIngrediente(Ingrediente ingrediente)
+        {
+            await _elBarDePiliDatabase.DeleteWithChildrenAsync(ingrediente);
+            Ingredientes.Remove(ingrediente);
+        }
     }
 }
