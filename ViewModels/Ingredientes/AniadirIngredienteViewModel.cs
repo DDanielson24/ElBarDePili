@@ -29,28 +29,36 @@ namespace ElBarDePili.ViewModels.Ingredientes
         [RelayCommand]
         private async Task SaveIngrediente()
         {
+            string displayAlertTitle = ""; 
+            string displayAlertMessage = "";
+
             if (_ingredientesViewModel.Ingredientes.Select(x => x.Nombre).ToList().Contains(Ingrediente.Nombre))
             {
-                await Shell.Current.DisplayAlert("Error", "Estás intentando añadir un ingrediente ya existente", "De acuerdo");
-                return;
+                displayAlertTitle = "Error";
+                displayAlertMessage = "Estás intentando añadir un ingrediente ya existente";
             }
-
-            try
+            else
             {
-                await _elBarDePiliDatabase.Add(Ingrediente);
-                _ingredientesViewModel.Ingredientes.Add(Ingrediente);
+                try
+                {
+                    await _elBarDePiliDatabase.SaveWithChildrenAsync(Ingrediente);
+                    _ingredientesViewModel.Ingredientes.Add(Ingrediente);
 
-                await Shell.Current.DisplayAlert("Guardado", "Los ingredientes han sido guardados correctamente.", "De acuerdo");
+                    displayAlertTitle = "Guardado";
+                    displayAlertMessage = "Los ingredientes han sido guardados correctamente.";
+                }
+                catch
+                {
+                    displayAlertTitle = "Error";
+                    displayAlertMessage = "Ha surgido un error al guardar el ingrediente";
+                }
+                finally
+                {
+                    await Shell.Current.Navigation.PopAsync();
+                }
             }
-            catch (Exception ex)
-            {
-                await Shell.Current.DisplayAlert("Error", "Ha surgido un error al guardar el ingrediente", "De acuerdo");
-            }
-            finally
-            {
-                await Shell.Current.Navigation.PopAsync();
-            }
-
+            
+            await Shell.Current.DisplayAlert(displayAlertTitle, displayAlertMessage, "De acuerdo");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLiteNetExtensionsAsync.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,60 +20,59 @@ namespace ElBarDePili.Database
 
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
 
-            //Database.DropTableAsync<Ingrediente>().Wait();
+            Database.DropTableAsync<Ingrediente>().Wait();
             Database.CreateTableAsync<Ingrediente>().Wait();
 
-            //Database.DropTableAsync<Receta>().Wait();  
+            Database.DropTableAsync<Receta>().Wait();  
             Database.CreateTableAsync<Receta>().Wait();
 
-            //Database.DropTableAsync<IngredientesRecetas>().Wait();
-            Database.CreateTableAsync<IngredientesRecetas>().Wait();
+            Database.DropTableAsync<RecetaIngrediente>().Wait();
+            Database.CreateTableAsync<RecetaIngrediente>().Wait();
         }
 
-        public async Task<int> Add(object o)
+        public Task<int> SaveAsync<T>(T item)
         {
-            var n = await Database.InsertAsync(o);
-            return n;
-        }
-        
-        public async Task<int> AddAll(IEnumerable<object> o)
-        {
-            var n = await Database.InsertAllAsync(o);
-            return n;
+            return Database.InsertAsync(item);
         }
 
-        public async Task<int> Update(object o)
+        public Task SaveWithChildrenAsync<T>(T item)
         {
-            var n = await Database.UpdateAsync(o);
-
-            return n;
+            return Database.InsertOrReplaceWithChildrenAsync(item, true);
         }
 
-        public async Task<int> UpdateAll(IEnumerable<object> o)
+        public Task<T> GetAsync<T>(Guid id) where T : new()
         {
-            var n = await Database.UpdateAllAsync(o);
-            return n;
+            return Database.GetAsync<T>(id);
         }
 
-        public async Task<int> Delete(object o)
+        public Task<T> GetWithChildrenAsync<T>(Guid id) where T : new()
         {
-            var n = await Database.DeleteAsync(o);
-            return n;
+            return Database.GetWithChildrenAsync<T>(id);
         }
 
-        public async Task<List<Receta>> GetRecetas()
+        public Task<List<T>> GetAllWithChildrenAsync<T>() where T : new()
         {
-            return await Database.Table<Receta>().ToListAsync();
-        }
-        
-        public async Task<List<Ingrediente>> GetIngredientes()
-        {
-            return await Database.Table<Ingrediente>().OrderBy(x => x.Nombre).ToListAsync();
+            return Database.GetAllWithChildrenAsync<T>();
         }
 
-        public async Task<List<IngredientesRecetas>> GetIngredientesRecetas()
+        public Task<int> UpdateAsync<T>(T item)
         {
-            return await Database.Table<IngredientesRecetas>().ToListAsync();
+            return Database.UpdateAsync(item);
         }
+
+        public Task UpdateWithChildrenAsync<T>(T item)
+        {
+            return Database.UpdateWithChildrenAsync(item);
+        }
+
+        public Task<int> DeleteAsync<T>(T item)
+        {
+            return Database.DeleteAsync(item);
+        }
+
+        public Task DeleteWithChildrenAsync<T>(T item)
+        {
+            return Database.DeleteAsync(item, true);
+        }        
     }
 }

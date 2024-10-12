@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ElBarDePili.Database;
+using ElBarDePili.Models;
 using ElBarDePili.Views;
 using ElBarDePili.Views.Ingredientes;
 using ElBarDePili.Views.Recetas;
@@ -34,9 +35,11 @@ namespace ElBarDePili.ViewModels
         }
 
         [RelayCommand]
-        public void GoToConfiguracionSection() 
+        public async void GoToConfiguracionSection() 
         {
-            Shell.Current.DisplayAlert("Próximamente", "Esta sección aún no está implementada.", "De acuerdo");
+            //Shell.Current.DisplayAlert("Próximamente", "Esta sección aún no está implementada.", "De acuerdo");
+            var x = await _elBarDePiliDatabase.GetAllWithChildrenAsync<Receta>();
+            var y = await _elBarDePiliDatabase.GetAllWithChildrenAsync<Ingrediente>();
         }
     }
 }

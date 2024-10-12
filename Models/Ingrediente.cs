@@ -1,5 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using SQLite;
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +9,14 @@ using System.Threading.Tasks;
 namespace ElBarDePili.Models
 {
     [Table("Ingrediente")]
-    public partial class Ingrediente : ObservableObject
+    public partial class Ingrediente
     {
         [PrimaryKey]
         public Guid Id { get; set; }
-
-        [ObservableProperty]
-        private string _nombre;
-
-        [ObservableProperty]
-        private bool _seDispone;
+        public string Nombre { get; set; }
+        public bool SeDispone { get; set; }
+        [ManyToMany(typeof(RecetaIngrediente), CascadeOperations = CascadeOperation.All)]
+        public List<Receta>? Recetas { get; set; }
 
         public Ingrediente()
         {

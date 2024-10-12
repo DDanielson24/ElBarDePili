@@ -24,19 +24,21 @@ namespace ElBarDePili.ViewModels.Ingredientes
             _elBarDePiliDatabase = elBarDePiliDatabase;
 
             Title = "Ingredientes";
-
-            GetIngredientesAsync();
         }
 
+        [RelayCommand]
         private async Task GetIngredientesAsync()
         {
-            Ingredientes = new ObservableCollection<Ingrediente>(await _elBarDePiliDatabase.GetIngredientes());
+            Ingredientes = new ObservableCollection<Ingrediente>(await _elBarDePiliDatabase.GetAllWithChildrenAsync<Ingrediente>());
         }
 
         [RelayCommand]
         private async Task SaveIngredientes()
         {
-            await _elBarDePiliDatabase.UpdateAll(Ingredientes);
+            foreach(var ingrediente in Ingredientes)
+            {
+                await _elBarDePiliDatabase.UpdateWithChildrenAsync<Ingrediente>(ingrediente);
+            }
 
             await Shell.Current.DisplayAlert("Guardado", "Los ingredientes han sido guardados correctamente.", "De acuerdo");
         }

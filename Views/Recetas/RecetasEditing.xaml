@@ -77,17 +77,17 @@
             </Label>
 
             <CollectionView Grid.Row="0" 
-                ItemsSource="{Binding IngredientesReceta}">
+                ItemsSource="{Binding Ingredientes}">
 
                 <CollectionView.ItemTemplate>
 
-                    <DataTemplate x:DataType="model:IngredientesReceta">
+                    <DataTemplate x:DataType="viewmodel:SeleccionIngredientes">
                         <Grid ColumnDefinitions="*,*" RowSpacing="10">
                             <Label Text="{Binding Ingrediente.Nombre}" 
                                Grid.Column="0" 
                                VerticalTextAlignment="Center"
                                HorizontalTextAlignment="Center"/>
-                            <CheckBox Grid.Column="1" IsChecked="{Binding FormaParteReceta}"/>
+                            <CheckBox Grid.Column="1" IsChecked="{Binding Seleccionado}"/>
                         </Grid>
                     </DataTemplate>
 

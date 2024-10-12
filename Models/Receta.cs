@@ -1,29 +1,20 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using SQLite;
+﻿using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace ElBarDePili.Models
 {
     [Table("Receta")]
-    public partial class Receta : ObservableObject
+    public partial class Receta
     {
         [PrimaryKey]
         public Guid Id { get; set; }
-
-        [ObservableProperty]
-        private string _nombre;
-
-        [ObservableProperty]
-        private string _descripcion;
-
-        [ObservableProperty]
-        private string _imagen;
-
-        [ObservableProperty]
-        private int _duracion;
-
-        [ObservableProperty]
-        private int _dificultad;
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public string Imagen { get; set; }
+        public int Duracion { get; set; }
+        public int Dificultad { get; set; }
+        [ManyToMany(typeof(RecetaIngrediente), CascadeOperations = CascadeOperation.All)]
+        public List<Ingrediente>? Ingredientes { get; set; }
 
         public Receta()
         {

@@ -78,37 +78,25 @@
                 </Label>
 
                 <CollectionView Grid.Row="0" 
-                                ItemsSource="{Binding IngredientesReceta}">
+                                ItemsSource="{Binding Receta.Ingredientes}">
 
                     <CollectionView.ItemTemplate>
 
-                        <DataTemplate x:DataType="model:IngredientesReceta">
+                        <DataTemplate x:DataType="model:Ingrediente">
                             <Grid ColumnDefinitions="*,*,*" RowSpacing="10">
-                                <Label Text="{Binding Ingrediente.Nombre}" 
+                                <Label Text="{Binding Nombre}" 
                                    Grid.Column="0" 
                                    VerticalTextAlignment="Center"
                                    HorizontalTextAlignment="Center"/>
-                                <Label Grid.Column="1"
-                                       VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding FormaParteReceta}" Value="True">
-                                            <Setter Property="Text" Value="NECESARIO"/>
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="Label" Binding="{Binding FormaParteReceta}" Value="False">
-                                            <Setter Property="Text" Value="No necesario"/>
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
                                 <Label Grid.Column="2"
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="Center">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding Ingrediente.SeDispone}" Value="True">
+                                        <DataTrigger TargetType="Label" Binding="{Binding SeDispone}" Value="True">
                                             <Setter Property="Text" Value="Disponible"/>
                                             <Setter Property="TextColor" Value="Green"/>
                                         </DataTrigger>
-                                        <DataTrigger TargetType="Label" Binding="{Binding Ingrediente.SeDispone}" Value="False">
+                                        <DataTrigger TargetType="Label" Binding="{Binding SeDispone}" Value="False">
                                             <Setter Property="Text" Value="No disponible"/>
                                             <Setter Property="TextColor" Value="Red"/>
                                         </DataTrigger>

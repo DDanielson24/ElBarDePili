@@ -23,13 +23,12 @@ namespace ElBarDePili.ViewModels.Recetas
         {
             _elBarDePiliDatabase = elBarDePiliDatabase;
             Title = "Recetas";
-
-            GetRecetasAsync();
         }
 
+        [RelayCommand]
         private async Task GetRecetasAsync()
         {
-            Recetas = new ObservableCollection<Receta>(await _elBarDePiliDatabase.GetRecetas());
+            Recetas = new ObservableCollection<Receta>(await _elBarDePiliDatabase.GetAllWithChildrenAsync<Receta>());
         }
 
         [RelayCommand]
@@ -38,46 +37,22 @@ namespace ElBarDePili.ViewModels.Recetas
             if (receta == null)
                 return;
 
-            var ingredientes = (await _elBarDePiliDatabase.GetIngredientes()).ToList();
+            var ingredientes = await _elBarDePiliDatabase.GetAllWithChildrenAsync<Ingrediente>();
 
-            List<IngredientesReceta> ingredientesReceta = new();
-            foreach (var ingrediente in ingredientes)
-            {
-                ingredientesReceta.Add(new IngredientesReceta()
-                {
-                    Ingrediente = ingrediente,
-                    FormaParteReceta = false
-                });
-            }
-
-            Shell.Current.GoToAsync(nameof(RecetasDetails), true,
+            await Shell.Current.GoToAsync(nameof(RecetasDetails), true,
                 new Dictionary<string, object>
                 {
-                    {"Receta", receta},
-                    {"IngredientesReceta", ingredientesReceta}
+                    {"Receta", receta}
                 });
         }
 
         [RelayCommand]
         private async void GoToAniadirReceta()
         {
-            var ingredientes = (await _elBarDePiliDatabase.GetIngredientes()).ToList();
-
-            List<IngredientesReceta> ingredientesReceta = new ();
-            foreach (var ingrediente in ingredientes)
-            {
-                ingredientesReceta.Add(new IngredientesReceta()
-                {
-                    Ingrediente = ingrediente,
-                    FormaParteReceta = false
-                });   
-            }
-
-            Shell.Current.GoToAsync(nameof(RecetasEditing), true,
+            await Shell.Current.GoToAsync(nameof(RecetasEditing), true,
                 new Dictionary<string, object>
                 {
-                    {"Receta", new Receta()},
-                    {"IngredientesReceta", ingredientesReceta}
+                    {"Receta", new Receta()}
                 });
         }
     }
