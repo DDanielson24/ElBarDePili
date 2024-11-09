@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
              xmlns:model="clr-namespace:ElBarDePili.Models"
              xmlns:viewmodel="clr-namespace:ElBarDePili.ViewModels.Recetas"
              x:Class="ElBarDePili.Views.Recetas.RecetasList"
@@ -9,16 +10,15 @@
 
     <Grid RowDefinitions="*, Auto">
 
-        <CollectionView Grid.Row="0"
-                        ItemsSource="{Binding Recetas}">
-
-            <CollectionView.ItemTemplate>
-
+        <dx:DXCollectionView Grid.Row="0"
+                             ItemsSource="{Binding Recetas}">
+            <dx:DXCollectionView.ItemTemplate>
+                
                 <DataTemplate x:DataType="model:Receta">
                     <Frame HeightRequest="125" Margin="5">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecetasViewModel}}, Path=GoToRecetasDetailsCommand}"/>
+                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:RecetasViewModel}}, Path=GoToRecetasDetailsCommand}"/>
                         </Frame.GestureRecognizers>
                         <HorizontalStackLayout Spacing="10">
                             <Image Aspect="AspectFill"
@@ -34,10 +34,9 @@
                         </HorizontalStackLayout>
                     </Frame>
                 </DataTemplate>
-
-            </CollectionView.ItemTemplate>
-
-        </CollectionView>
+                
+            </dx:DXCollectionView.ItemTemplate>
+        </dx:DXCollectionView>
 
         <Button Text="Añadir receta"
                 Grid.Row="1"

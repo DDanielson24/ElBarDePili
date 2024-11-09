@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ElBarDePili.ViewModels.Recetas
 {
-    [QueryProperty(nameof(Receta), "Receta")]
+    //[QueryProperty(nameof(Receta), "Receta")]
     public partial class RecetasEditingViewModel : ObservableObject
     {
         private readonly ElBarDePiliDatabase _elBarDePiliDatabase;
@@ -24,10 +24,20 @@ namespace ElBarDePili.ViewModels.Recetas
         [ObservableProperty]
         private List<SeleccionIngredientes> _ingredientes = new();
 
+        [ObservableProperty]
+        private ImageSource _selectedImage = "croquetas.png";
+        [ObservableProperty]
+        private string _selectedImagePath;
+
         public RecetasEditingViewModel(ElBarDePiliDatabase elBarDePiliDatabase, RecetasViewModel recetasViewModel)
         {
             _elBarDePiliDatabase = elBarDePiliDatabase;
             _recetasViewModel = recetasViewModel;
+
+            Receta = new Receta()
+            {
+                Nombre = "esto es una prueba"
+            };
 
             GetIngredientesAsync();
         }
@@ -76,6 +86,27 @@ namespace ElBarDePili.ViewModels.Recetas
                 _recetasViewModel.Recetas.Add(Receta);
             }
 
+            //IMAGEN
+            try
+            {
+                if (!string.IsNullOrEmpty(SelectedImagePath))
+                {
+                    var fileName = Path.GetFileName(SelectedImagePath);
+                    var destinationPath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+
+                    using (var sourceStream = File.OpenRead(SelectedImagePath))
+                    using (var destinationStream = File.Create(destinationPath))
+                    {
+                        await sourceStream.CopyToAsync(destinationStream);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+           
+
             var editingPage = Shell.Current.Navigation.NavigationStack[Shell.Current.Navigation.NavigationStack.Count - 1];
             var detailsPage = Shell.Current.Navigation.NavigationStack[Shell.Current.Navigation.NavigationStack.Count - 2];
 
@@ -87,6 +118,29 @@ namespace ElBarDePili.ViewModels.Recetas
 
             if (editingPage != null) Shell.Current.Navigation.RemovePage(editingPage);
             if (detailsPage != null) Shell.Current.Navigation.RemovePage(detailsPage);
+        }
+
+        [RelayCommand]
+        private async void SelectImage()
+        {
+            try
+            {
+                var result = await FilePicker.PickAsync(new PickOptions()
+                {
+                    FileTypes = FilePickerFileType.Images,
+                    PickerTitle = "Selecciona una imagen"
+                });
+
+                if (result != null)
+                {
+                    // Abrir el flujo de la imagen y mantenerlo abierto mientras se utiliza
+                    var stream = await result.OpenReadAsync();
+                    SelectedImage = ImageSource.FromStream(() => stream);
+                    SelectedImagePath = result.FullPath;
+                    Receta.Imagen = Path.Combine(FileSystem.AppDataDirectory, Path.GetFileName(result.FullPath));
+                }
+            }
+            catch { }
         }
     }
 

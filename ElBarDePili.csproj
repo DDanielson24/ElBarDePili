@@ -62,6 +62,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="DevExpress.Maui.CollectionView" Version="24.1.7" />
+		<PackageReference Include="DevExpress.Maui.Core" Version="24.1.7" />
+		<PackageReference Include="DevExpress.Maui.Editors" Version="24.1.7" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -77,6 +80,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\Calculador\Calculador.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Ingredientes\AniadirIngrediente.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

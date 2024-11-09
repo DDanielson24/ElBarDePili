@@ -1,18 +1,33 @@
-﻿using SQLite;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DevExpress.Maui.DataForm;
+using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace ElBarDePili.Models
 {
     [Table("Receta")]
-    public partial class Receta
+    public partial class Receta : ObservableObject
     {
         [PrimaryKey]
         public Guid Id { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public string Imagen { get; set; }
-        public int Duracion { get; set; }
-        public int Dificultad { get; set; }
+
+        [ObservableProperty]
+        [property: DataFormDisplayOptions(LabelText = "Nombre Prueba")]
+        private string _nombre;
+
+        [ObservableProperty]
+        private string _descripcion;
+
+        [ObservableProperty]
+        [property: DataFormDisplayOptions(IsVisible = false)]
+        private string _imagen;
+
+        [ObservableProperty]
+        private int _duracion;
+
+        [ObservableProperty]
+        private int _dificultad;
+
         [ManyToMany(typeof(RecetaIngrediente), CascadeOperations = CascadeOperation.All)]
         public List<Ingrediente>? Ingredientes { get; set; }
 

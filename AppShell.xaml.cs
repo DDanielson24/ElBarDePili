@@ -1,6 +1,7 @@
 ﻿using ElBarDePili.Views;
 using ElBarDePili.Views.Ingredientes;
 using ElBarDePili.Views.Recetas;
+using ElBarDePili.Views.Calculador;
 
 namespace ElBarDePili
 {
@@ -9,6 +10,8 @@ namespace ElBarDePili
         public AppShell()
         {
             InitializeComponent();
+
+            Routing.RegisterRoute(nameof(Calculador), typeof(Calculador));
 
             Routing.RegisterRoute(nameof(RecetasList), typeof(RecetasList));
             Routing.RegisterRoute(nameof(RecetasDetails), typeof(RecetasDetails));

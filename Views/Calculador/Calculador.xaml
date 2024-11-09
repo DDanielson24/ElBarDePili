@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ElBarDePili.ViewModels.Calculador"
+             x:Class="ElBarDePili.Views.Calculador.Calculador"
+             x:DataType="viewmodel:CalculadorViewModel"
+             Title="{Binding Title}">
+
+    <ScrollView>
+
+        <Grid RowDefinitions="*,Auto"
+              Margin="10">
+
+            <VerticalStackLayout Spacing="20"
+                                 Grid.Row="0">
+
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Determina los ajustes para encontrar la receta perfecta:" FontAttributes="Bold" FontSize="20"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Frame>
+                    <VerticalStackLayout>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Duración:" FontAttributes="Bold" FontSize="16"></Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Entry Keyboard="Numeric" Text="{Binding Duracion}"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame>
+                    <VerticalStackLayout>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Dificultad:" FontAttributes="Bold" FontSize="16"></Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Picker SelectedItem="{Binding Dificultad}">
+                            <Picker.Items>
+                                <x:String>0</x:String>
+                                <x:String>1</x:String>
+                                <x:String>2</x:String>
+                                <x:String>3</x:String>
+                                <x:String>4</x:String>
+                                <x:String>5</x:String>
+                                <x:String>6</x:String>
+                                <x:String>7</x:String>
+                                <x:String>8</x:String>
+                                <x:String>9</x:String>
+                                <x:String>10</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Label Text="Personaliza cuál de los siguientes ingredientes disponibles quieres usar:"/>
+                <CollectionView ItemsSource="{Binding Ingredientes}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodel:IngredientesSeleccion">
+                            <Grid ColumnDefinitions="*,*" RowSpacing="10">
+                                <Label Grid.Column="0" 
+                                       Text="{Binding Ingrediente.Nombre}"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center"/>
+                                <CheckBox Grid.Column="1" IsChecked="{Binding Seleccionado}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+            <Button Grid.Row="1"
+                    Text="Obtener receta"/>
+
+        </Grid>
+        
+    </ScrollView>
+
+</ContentPage>

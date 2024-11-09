@@ -1,17 +1,49 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="ElBarDePili.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ElBarDePili"
-    xmlns:views="clr-namespace:ElBarDePili.Views"
-    Shell.FlyoutBehavior="Disabled"
-    Shell.BackgroundColor="Pink"
-    Title="ElBarDePili">
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:ElBarDePili.Views"
+       xmlns:calculadorViews="clr-namespace:ElBarDePili.Views.Calculador"
+       xmlns:recetasViews="clr-namespace:ElBarDePili.Views.Recetas"
+       xmlns:ingredientesViews="clr-namespace:ElBarDePili.Views.Ingredientes"
+       x:Class="ElBarDePili.AppShell"
+       Shell.BackgroundColor="Pink"
+       Shell.FlyoutBackgroundColor="LightSalmon"
+       Title="ElBarDePili">
 
-    <ShellContent
-        Title="Inicio"
-        ContentTemplate="{DataTemplate views:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem Title="Home">
+        
+        <ShellContent
+            Title="Inicio"
+            ContentTemplate="{DataTemplate views:MainPage}"
+            Route="MainPage" />
+        
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Calculador recetas">
+        
+        <ShellContent
+            Title="Calculador recetas"
+            ContentTemplate="{DataTemplate calculadorViews:Calculador}"
+            Route="Calculador" />
+        
+    </FlyoutItem>
+
+    <FlyoutItem Title="Recetas">
+
+        <ShellContent
+            Title="Recetas"
+            ContentTemplate="{DataTemplate recetasViews:RecetasList}"
+            Route="RecetasList"/>
+        
+    </FlyoutItem>
+
+    <FlyoutItem Title="Ingredientes">
+
+        <ShellContent
+            Title="Recetas"
+            ContentTemplate="{DataTemplate ingredientesViews:IngredientesList}"
+            Route="IngredientesList"/>
+
+    </FlyoutItem>
 
 </Shell>
