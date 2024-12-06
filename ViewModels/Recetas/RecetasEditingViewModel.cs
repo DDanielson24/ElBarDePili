@@ -9,10 +9,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ElBarDePili.ViewModels.Recetas
 {
-    //[QueryProperty(nameof(Receta), "Receta")]
+    [QueryProperty(nameof(Receta), "Receta")]
     public partial class RecetasEditingViewModel : ObservableObject
     {
         private readonly ElBarDePiliDatabase _elBarDePiliDatabase;
@@ -25,19 +26,14 @@ namespace ElBarDePili.ViewModels.Recetas
         private List<SeleccionIngredientes> _ingredientes = new();
 
         [ObservableProperty]
-        private ImageSource _selectedImage = "croquetas.png";
+        private ImageSource _selectedImage = "aniadir_imagen.png";
         [ObservableProperty]
-        private string _selectedImagePath;
+        private string? _selectedImagePath;
 
         public RecetasEditingViewModel(ElBarDePiliDatabase elBarDePiliDatabase, RecetasViewModel recetasViewModel)
         {
             _elBarDePiliDatabase = elBarDePiliDatabase;
             _recetasViewModel = recetasViewModel;
-
-            Receta = new Receta()
-            {
-                Nombre = "esto es una prueba"
-            };
 
             GetIngredientesAsync();
         }
@@ -105,19 +101,29 @@ namespace ElBarDePili.ViewModels.Recetas
             {
                 Console.WriteLine(ex.Message);
             }
-           
 
-            var editingPage = Shell.Current.Navigation.NavigationStack[Shell.Current.Navigation.NavigationStack.Count - 1];
-            var detailsPage = Shell.Current.Navigation.NavigationStack[Shell.Current.Navigation.NavigationStack.Count - 2];
+            //AQUÍ HAY 2 CASOS DIFERENTES:
+            // 1. NULL --> 2. EDITING --> 3. DETAILS
+            // 1. DETAILS --> 2. EDITING --> 3. DETAILS
 
-            await Shell.Current.GoToAsync(nameof(RecetasDetails), true,
-                new Dictionary<string, object>
-                {
+            var lastNavigationStackPage = Shell.Current.Navigation.NavigationStack[Shell.Current.Navigation.NavigationStack.Count - 2];
+
+            if (lastNavigationStackPage is null)
+            {
+                var editingPage = Shell.Current.Navigation.NavigationStack.Last();
+
+                await Shell.Current.GoToAsync("Recetas/" + nameof(RecetasDetails), true,
+                    new Dictionary<string, object>
+                    {
                     {"Receta", Receta}
-                });
+                    });
 
-            if (editingPage != null) Shell.Current.Navigation.RemovePage(editingPage);
-            if (detailsPage != null) Shell.Current.Navigation.RemovePage(detailsPage);
+                if (editingPage != null) Shell.Current.Navigation.RemovePage(editingPage);
+            }
+            else if (lastNavigationStackPage is RecetasDetails)
+            {
+                await Shell.Current.Navigation.PopAsync();
+            }
         }
 
         [RelayCommand]

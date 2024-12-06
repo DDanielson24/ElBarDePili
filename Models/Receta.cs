@@ -12,7 +12,7 @@ namespace ElBarDePili.Models
         public Guid Id { get; set; }
 
         [ObservableProperty]
-        [property: DataFormDisplayOptions(LabelText = "Nombre Prueba")]
+        [property: DataFormDisplayOptions(LabelText = "Nombre")]
         private string _nombre;
 
         [ObservableProperty]

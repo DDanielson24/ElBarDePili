@@ -21,25 +21,5 @@ namespace ElBarDePili.ViewModels
         {
             _elBarDePiliDatabase = elBarDePiliDatabase;
         }
-
-        [RelayCommand]
-        public void GoToRecetasSection() 
-        {
-            Shell.Current.GoToAsync(nameof(RecetasList));
-        }
-
-        [RelayCommand]
-        public void GoToIngredientesSection() 
-        {
-            Shell.Current.GoToAsync(nameof(IngredientesList));
-        }
-
-        [RelayCommand]
-        public async void GoToConfiguracionSection() 
-        {
-            //Shell.Current.DisplayAlert("Próximamente", "Esta sección aún no está implementada.", "De acuerdo");
-            var x = await _elBarDePiliDatabase.GetAllWithChildrenAsync<Receta>();
-            var y = await _elBarDePiliDatabase.GetAllWithChildrenAsync<Ingrediente>();
-        }
     }
 }

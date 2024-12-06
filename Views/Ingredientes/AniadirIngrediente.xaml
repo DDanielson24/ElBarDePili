@@ -10,9 +10,10 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Guardar"
-                 Command="{Binding SaveIngredienteCommand}"/>
+                 Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
 
-    <dx:DataFormView DataObject="{Binding Ingrediente}"/>
+    <dx:DataFormView x:Name="dataForm"
+                     DataObject="{Binding Ingrediente}"/>
 
 </ContentPage>

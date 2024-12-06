@@ -13,12 +13,12 @@ namespace ElBarDePili
 
             Routing.RegisterRoute(nameof(Calculador), typeof(Calculador));
 
-            Routing.RegisterRoute(nameof(RecetasList), typeof(RecetasList));
-            Routing.RegisterRoute(nameof(RecetasDetails), typeof(RecetasDetails));
-            Routing.RegisterRoute(nameof(RecetasEditing), typeof(RecetasEditing));
+            //Routing.RegisterRoute("Recetas/" + nameof(RecetasList), typeof(RecetasList));
+            Routing.RegisterRoute("Recetas/" + nameof(RecetasDetails), typeof(RecetasDetails));
+            Routing.RegisterRoute("Recetas/" + nameof(RecetasEditing), typeof(RecetasEditing));
 
-            Routing.RegisterRoute(nameof(IngredientesList), typeof(IngredientesList));
-            Routing.RegisterRoute(nameof(AniadirIngrediente), typeof(AniadirIngrediente));
+            //Routing.RegisterRoute("Ingredientes/" + nameof(IngredientesList), typeof(IngredientesList));
+            Routing.RegisterRoute("Ingredientes/" + nameof(AniadirIngrediente), typeof(AniadirIngrediente));
         }
     }
 }

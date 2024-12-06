@@ -1,14 +1,23 @@
 using ElBarDePili.ViewModels.Ingredientes;
 using DevExpress.Maui.Editors;
 using ElBarDePili.Models;
+using DevExpress.Maui.DataForm;
 
 namespace ElBarDePili.Views.Ingredientes;
 
 public partial class AniadirIngrediente : ContentPage
 {
-	public AniadirIngrediente(AniadirIngredienteViewModel aniadirIngredienteViewModel)
+    private readonly AniadirIngredienteViewModel _aniadirIngredienteViewModel;
+    public AniadirIngrediente(AniadirIngredienteViewModel aniadirIngredienteViewModel)
 	{
 		InitializeComponent();
-		BindingContext = aniadirIngredienteViewModel;
+        _aniadirIngredienteViewModel = aniadirIngredienteViewModel;
+		BindingContext = _aniadirIngredienteViewModel;
+    }
+
+    private void ToolbarItem_Clicked(object sender, EventArgs e)
+    {
+        dataForm.Commit();
+        _aniadirIngredienteViewModel.SaveIngredienteCommand.Execute(null);
     }
 }

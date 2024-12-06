@@ -8,6 +8,8 @@
              Title="{Binding Receta.Nombre}">
 
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Eliminar"
+                     Clicked="ToolbarItem_Clicked"/>
         <ToolbarItem Text="Editar" 
                      Command="{Binding GoToRecetasEditingCommand}"/>
     </ContentPage.ToolbarItems>

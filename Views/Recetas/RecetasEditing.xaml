@@ -11,7 +11,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Guardar"
-                     Command="{Binding SaveEditingCommand}"
+                     Clicked="ToolbarItem_Clicked"
                      CommandParameter="{Binding Receta}"/>
     </ContentPage.ToolbarItems>
 
@@ -26,7 +26,8 @@
             </Frame>
 
 
-            <dx:DataFormView DataObject="{Binding Receta}"
+            <dx:DataFormView x:Name="dataForm"
+                             DataObject="{Binding Receta}"
                              EditorLabelPosition="Top">
             </dx:DataFormView>
 

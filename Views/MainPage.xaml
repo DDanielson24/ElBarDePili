@@ -19,20 +19,6 @@
             
             <Image Source="cocinahome.jpg"/>
             
-            <Button
-                Text="Recetas"
-                Margin="40,0,40,0"
-                Command="{Binding GoToRecetasSectionCommand}"/>
-            
-            <Button
-                Text="Ingredientes"
-                Margin="40,0,40,0"
-                Command="{Binding GoToIngredientesSectionCommand}"/>
-            
-            <Button
-                Text="Configuración"
-                Margin="40,0,40,0"
-                Command="{Binding GoToConfiguracionSectionCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 

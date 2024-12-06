@@ -7,10 +7,11 @@
        xmlns:ingredientesViews="clr-namespace:ElBarDePili.Views.Ingredientes"
        x:Class="ElBarDePili.AppShell"
        Shell.BackgroundColor="Pink"
-       Shell.FlyoutBackgroundColor="LightSalmon"
+       Shell.FlyoutBackgroundColor="Pink"
        Title="ElBarDePili">
 
-    <FlyoutItem Title="Home">
+    <FlyoutItem Title="Home"
+                Route="Home">
         
         <ShellContent
             Title="Inicio"
@@ -19,16 +20,18 @@
         
     </FlyoutItem>
     
-    <FlyoutItem Title="Calculador recetas">
+    <FlyoutItem Title="Calculador recetas"
+                Route="Calculador">
         
         <ShellContent
             Title="Calculador recetas"
             ContentTemplate="{DataTemplate calculadorViews:Calculador}"
-            Route="Calculador" />
+            Route="CalculadorConfigurador" />
         
     </FlyoutItem>
 
-    <FlyoutItem Title="Recetas">
+    <FlyoutItem Title="Recetas"
+                Route="Recetas">
 
         <ShellContent
             Title="Recetas"
@@ -37,7 +40,8 @@
         
     </FlyoutItem>
 
-    <FlyoutItem Title="Ingredientes">
+    <FlyoutItem Title="Ingredientes"
+                Route="Ingredientes">
 
         <ShellContent
             Title="Recetas"

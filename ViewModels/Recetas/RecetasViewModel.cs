@@ -32,14 +32,14 @@ namespace ElBarDePili.ViewModels.Recetas
         }
 
         [RelayCommand]
-        private async void GoToRecetasDetails(Receta receta)
+        private async Task GoToRecetasDetails(Receta receta)
         {
             if (receta == null)
                 return;
 
             var ingredientes = await _elBarDePiliDatabase.GetAllWithChildrenAsync<Ingrediente>();
 
-            await Shell.Current.GoToAsync(nameof(RecetasDetails), true,
+            await Shell.Current.GoToAsync("Recetas/" + nameof(RecetasDetails), true,
                 new Dictionary<string, object>
                 {
                     {"Receta", receta}
@@ -47,9 +47,9 @@ namespace ElBarDePili.ViewModels.Recetas
         }
 
         [RelayCommand]
-        private async void GoToAniadirReceta()
+        private async Task GoToAniadirReceta()
         {
-            await Shell.Current.GoToAsync(nameof(RecetasEditing), true,
+            await Shell.Current.GoToAsync("Recetas/" + nameof(RecetasEditing), true,
                 new Dictionary<string, object>
                 {
                     {"Receta", new Receta()}

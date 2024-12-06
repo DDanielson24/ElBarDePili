@@ -46,7 +46,7 @@ namespace ElBarDePili.ViewModels.Ingredientes
         [RelayCommand]
         private void GoToAniadirIngrediente()
         {
-            Shell.Current.GoToAsync(nameof(AniadirIngrediente), true);
+            Shell.Current.GoToAsync("Ingredientes/" + nameof(AniadirIngrediente), true);
         }
 
         [RelayCommand]
