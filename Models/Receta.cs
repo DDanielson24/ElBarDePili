@@ -36,7 +36,7 @@ namespace ElBarDePili.Models
             Id = Guid.NewGuid();
             Nombre = String.Empty;
             Descripcion = String.Empty;
-            Imagen = String.Empty;
+            Imagen = "aniadir_imagen.png";
             Duracion = 0;
             Dificultad = 0;
         }

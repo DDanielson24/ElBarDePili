@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
              xmlns:model="clr-namespace:ElBarDePili.Models"
              xmlns:viewmodel="clr-namespace:ElBarDePili.ViewModels.Recetas"
              x:Class="ElBarDePili.Views.Recetas.RecetasDetails"
@@ -13,108 +14,89 @@
         <ToolbarItem Text="Editar" 
                      Command="{Binding GoToRecetasEditingCommand}"/>
     </ContentPage.ToolbarItems>
-    
-    <ScrollView>
-        <VerticalStackLayout>
 
-            <Grid RowDefinitions="160, Auto"
-                  ColumnDefinitions="*,*,*">
+    <dx:TabView HeaderPanelPosition="Bottom"
+            HeaderPanelBackgroundColor="Pink">
+        <dx:TabViewItem HeaderText="Detalles">
+            <dx:TabViewItem.Content>
+                <ScrollView>
+                    <VerticalStackLayout>
 
-                <BoxView Grid.Row="0"
-                         Grid.ColumnSpan="3"
-                         BackgroundColor="Orange"
-                         HeightRequest="160"
-                         HorizontalOptions="FillAndExpand"/>
+                        <Grid RowDefinitions="160, Auto"
+                               ColumnDefinitions="*,*,*">
 
-                <Frame Grid.RowSpan="2"
-                       Grid.Column="1"
-                       HeightRequest="160"
-                       WidthRequest="160"
-                       CornerRadius="80"
-                       Margin="0,40,0,0">
+                            <BoxView Grid.Row="0"
+                                     Grid.ColumnSpan="3"
+                                     BackgroundColor="Orange"
+                                     HeightRequest="160"
+                                     HorizontalOptions="FillAndExpand"/>
 
-                    <Image Aspect="AspectFill"
-                           HeightRequest="160"
-                           WidthRequest="160"
-                           Source="{Binding Receta.Imagen}"/>
+                            <Frame Grid.RowSpan="2"
+                                   Grid.Column="1"
+                                   HeightRequest="160"
+                                   WidthRequest="160"
+                                   CornerRadius="80"
+                                   Margin="0,40,0,0">
 
-                </Frame>
-                
-            </Grid>
+                                <Image Aspect="AspectFill"
+                                       HeightRequest="160"
+                                       WidthRequest="160"
+                                       Source="{Binding Receta.Imagen}"/>   
 
-            <VerticalStackLayout Padding="10" Spacing="10">
+                            </Frame>
 
-                <Label>
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Descripción: " FontAttributes="Bold" FontSize="16" />
-                            <Span Text="{Binding Receta.Descripcion}" FontSize="16" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                
-                <Label>
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Duración: " FontAttributes="Bold" FontSize="16" />
-                            <Span Text="{Binding Receta.Duracion}" FontSize="16" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                
-                <Label>
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Dificultad: " FontAttributes="Bold" FontSize="16" />
-                            <Span Text="{Binding Receta.Dificultad}" FontSize="16" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                
-                <Label>
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Ingredientes: " FontAttributes="Bold" FontSize="16" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
+                        </Grid>
 
-                <CollectionView Grid.Row="0" 
-                                ItemsSource="{Binding Receta.Ingredientes}">
+                        <VerticalStackLayout Padding="10" Spacing="10">
 
-                    <CollectionView.ItemTemplate>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Descripción: " FontAttributes="Bold" FontSize="16" />
+                                        <Span Text="{Binding Receta.Descripcion}" FontSize="16" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
-                        <DataTemplate x:DataType="model:Ingrediente">
-                            <Grid ColumnDefinitions="*,*,*" RowSpacing="10">
-                                <Label Text="{Binding Nombre}" 
-                                   Grid.Column="0" 
-                                   VerticalTextAlignment="Center"
-                                   HorizontalTextAlignment="Center"/>
-                                <Label Grid.Column="2"
-                                       VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SeDispone}" Value="True">
-                                            <Setter Property="Text" Value="Disponible"/>
-                                            <Setter Property="TextColor" Value="Green"/>
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SeDispone}" Value="False">
-                                            <Setter Property="Text" Value="No disponible"/>
-                                            <Setter Property="TextColor" Value="Red"/>
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </Grid>
-                        </DataTemplate>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Duración: " FontAttributes="Bold" FontSize="16" />
+                                        <Span Text="{Binding Receta.Duracion}" FontSize="16" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
-                    </CollectionView.ItemTemplate>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Dificultad: " FontAttributes="Bold" FontSize="16" />
+                                        <Span Text="{Binding Receta.Dificultad}" FontSize="16" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
-                </CollectionView>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Ingredientes: " FontAttributes="Bold" FontSize="16" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
-            </VerticalStackLayout>
-            
-        </VerticalStackLayout>
-    </ScrollView>
-    
-    
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+            </dx:TabViewItem.Content>
+        </dx:TabViewItem>
+
+        <dx:TabViewItem HeaderText="Ingredientes">
+            <dx:TabViewItem.Content>
+                <Label Text="Upcoming..."/>
+            </dx:TabViewItem.Content>
+        </dx:TabViewItem>
+    </dx:TabView>
+
+
 </ContentPage>

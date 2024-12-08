@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static SQLite.SQLite3;
 
 namespace ElBarDePili.ViewModels.Recetas
 {
@@ -26,7 +27,7 @@ namespace ElBarDePili.ViewModels.Recetas
         private List<SeleccionIngredientes> _ingredientes = new();
 
         [ObservableProperty]
-        private ImageSource _selectedImage = "aniadir_imagen.png";
+        private ImageSource _selectedImage;
         [ObservableProperty]
         private string? _selectedImagePath;
 
@@ -64,24 +65,6 @@ namespace ElBarDePili.ViewModels.Recetas
             if (Receta == null)
                 return;
 
-            List<Ingrediente>? ingredientesSeleccionados = Ingredientes?.Where(x => x.Seleccionado).Select(x => x.Ingrediente).ToList();
-            if (ingredientesSeleccionados != null)
-            {
-                Receta.Ingredientes = ingredientesSeleccionados;
-            }
-
-            var recetas = await _elBarDePiliDatabase.GetAllWithChildrenAsync<Receta>();
-
-            if (recetas.Where(x => x.Id.Equals(Receta.Id)).Any())
-            {
-                await _elBarDePiliDatabase.UpdateWithChildrenAsync(Receta);
-            }
-            else
-            {
-                await _elBarDePiliDatabase.SaveWithChildrenAsync(Receta);
-                _recetasViewModel.Recetas.Add(Receta);
-            }
-
             //IMAGEN
             try
             {
@@ -100,6 +83,24 @@ namespace ElBarDePili.ViewModels.Recetas
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+
+            List<Ingrediente>? ingredientesSeleccionados = Ingredientes?.Where(x => x.Seleccionado).Select(x => x.Ingrediente).ToList();
+            if (ingredientesSeleccionados != null)
+            {
+                Receta.Ingredientes = ingredientesSeleccionados;
+            }
+
+            var recetas = await _elBarDePiliDatabase.GetAllWithChildrenAsync<Receta>();
+
+            if (recetas.Where(x => x.Id.Equals(Receta.Id)).Any())
+            {
+                await _elBarDePiliDatabase.UpdateWithChildrenAsync(Receta);
+            }
+            else
+            {
+                await _elBarDePiliDatabase.SaveWithChildrenAsync(Receta);
+                _recetasViewModel.Recetas.Add(Receta);
             }
 
             //AQUÍ HAY 2 CASOS DIFERENTES:
@@ -143,7 +144,7 @@ namespace ElBarDePili.ViewModels.Recetas
                     var stream = await result.OpenReadAsync();
                     SelectedImage = ImageSource.FromStream(() => stream);
                     SelectedImagePath = result.FullPath;
-                    Receta.Imagen = Path.Combine(FileSystem.AppDataDirectory, Path.GetFileName(result.FullPath));
+                    Receta.Imagen = Path.Combine(FileSystem.AppDataDirectory, Path.GetFileName(result.FullPath)); ;
                 }
             }
             catch { }

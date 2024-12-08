@@ -1,5 +1,6 @@
 ﻿using ElBarDePili.Views;
 using ElBarDePili.ViewModels;
+using DevExpress.Maui.Controls;
 
 namespace ElBarDePili.Views
 {

@@ -15,23 +15,41 @@
                      CommandParameter="{Binding Receta}"/>
     </ContentPage.ToolbarItems>
 
-    <ScrollView>
-        <VerticalStackLayout>
-            <Frame WidthRequest="200" HeightRequest="200" CornerRadius="100">
-                <dx:DXImage Source="{Binding SelectedImage}" Aspect="AspectFill" HeightRequest="200" WidthRequest="200">
-                    <dx:DXImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding SelectImageCommand}"/>
-                    </dx:DXImage.GestureRecognizers>
-                </dx:DXImage>
-            </Frame>
+    <dx:TabView HeaderPanelPosition="Bottom"
+                HeaderPanelBackgroundColor="Pink">
+        <dx:TabViewItem HeaderText="Detalles">
+            <dx:TabViewItem.Content>
+                <ScrollView>
+                    <VerticalStackLayout>
+                        <Frame WidthRequest="200" HeightRequest="200" CornerRadius="100">
+                            <dx:DXImage Source="{Binding Receta.Imagen}" Aspect="AspectFill" HeightRequest="200" WidthRequest="200">
+                                <dx:DXImage.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectImageCommand}"/>
+                                </dx:DXImage.GestureRecognizers>
+                            </dx:DXImage>
+                        </Frame>
 
 
-            <dx:DataFormView x:Name="dataForm"
-                             DataObject="{Binding Receta}"
-                             EditorLabelPosition="Top">
-            </dx:DataFormView>
+                        <dx:DataFormView x:Name="dataForm"
+                         DataObject="{Binding Receta}"
+                         EditorLabelPosition="Top">
+                        </dx:DataFormView>
 
-        </VerticalStackLayout>
-    </ScrollView>
+                        <dx:TabView>
+                            <dx:TabViewItem HeaderText="Detalles"/>
+                            <dx:TabViewItem HeaderText="Ingredientes"/>
+                        </dx:TabView>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+            </dx:TabViewItem.Content>
+        </dx:TabViewItem>
+        
+        <dx:TabViewItem HeaderText="Ingredientes">
+            <dx:TabViewItem.Content>
+                <Label Text="Upcoming..."/>
+            </dx:TabViewItem.Content>
+        </dx:TabViewItem>
+    </dx:TabView>
 
 </ContentPage>

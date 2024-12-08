@@ -29,7 +29,7 @@ namespace ElBarDePili.ViewModels.Ingredientes
         [RelayCommand]
         private async Task GetIngredientesAsync()
         {
-            Ingredientes = new ObservableCollection<Ingrediente>(await _elBarDePiliDatabase.GetAllWithChildrenAsync<Ingrediente>());
+            Ingredientes = new ObservableCollection<Ingrediente>((await _elBarDePiliDatabase.GetAllWithChildrenAsync<Ingrediente>()).OrderBy(x => x.Nombre));
         }
 
         [RelayCommand]
