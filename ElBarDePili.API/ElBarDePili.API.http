@@ -1,0 +1,6 @@
+@ElBarDePili.API_HostAddress = http://localhost:5034
+
+GET {{ElBarDePili.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

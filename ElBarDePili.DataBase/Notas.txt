@@ -1,0 +1,1 @@
+﻿dotnet ef dbcontext scaffold "Server=tcp:fd-frias.database.windows.net,1433;Initial Catalog=elbardepili;Persist Security Info=False;User ID=fd.frias;Password=P0rtale5;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" Microsoft.EntityFrameworkCore.SqlServer

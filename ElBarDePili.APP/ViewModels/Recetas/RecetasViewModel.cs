@@ -29,6 +29,30 @@ namespace ElBarDePili.ViewModels.Recetas
         private async Task GetRecetasAsync()
         {
             Recetas = new ObservableCollection<Receta>(await _elBarDePiliDatabase.GetAllWithChildrenAsync<Receta>());
+
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                return;
+            }
+            try
+            {
+                using (HttpClient client = new())
+                {
+                    HttpRequestMessage request = new(HttpMethod.Get, "http://10.0.2.2:5034/Recetas/GetRecetas");
+                    var response = client.SendAsync(request).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseContent = response.Content.ReadAsStringAsync().Result;
+                    }
+
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
 
         [RelayCommand]

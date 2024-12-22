@@ -20,6 +20,9 @@
 
             <Image Source="cocinahome.jpg"/>
 
+            <Button Text="PruebaAPI"
+                    Clicked="Button_Clicked"/>
+
         </VerticalStackLayout>
     </ScrollView>
 
