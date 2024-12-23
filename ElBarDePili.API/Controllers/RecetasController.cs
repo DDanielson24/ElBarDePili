@@ -18,7 +18,7 @@ namespace ElBarDePili.API.Controllers
         [Route("GetRecetas")]
         public async Task<IActionResult> GetRecetas()
         {
-            List<Receta> recetas = await _dbContext.Recetas.ToListAsync();
+            List<Recetas> recetas = await _dbContext.Recetas.ToListAsync();
 
             if (recetas != null) return Ok(recetas);
             else return BadRequest("No se han obtenido recetas.");
@@ -26,11 +26,11 @@ namespace ElBarDePili.API.Controllers
 
         [HttpPost]
         [Route("AddReceta")]
-        public async Task<IActionResult> AddReceta([FromBody] Receta? receta)
+        public async Task<IActionResult> AddReceta([FromBody] Recetas? receta)
         {
             if (receta == null) return BadRequest("No se ha proporcionado ninguna receta a añadir.");
 
-            List<Receta> recetas = await _dbContext.Recetas.ToListAsync();
+            List<Recetas> recetas = await _dbContext.Recetas.ToListAsync();
             if (recetas != null && recetas.Any(x => x.Id.Equals(receta.Id))) return BadRequest("La receta que intentas añadir ya existe.");
 
             await _dbContext.Recetas.AddAsync(receta);
@@ -41,11 +41,11 @@ namespace ElBarDePili.API.Controllers
 
         [HttpPost]
         [Route("UpdateReceta")]
-        public async Task<IActionResult> UpdateReceta([FromBody] Receta? receta)
+        public async Task<IActionResult> UpdateReceta([FromBody] Recetas? receta)
         {
             if (receta == null) return BadRequest("No se ha proporcionado ninguna receta a actualizar.");
             
-            List<Receta> recetas = await _dbContext.Recetas.ToListAsync();
+            List<Recetas> recetas = await _dbContext.Recetas.ToListAsync();
             if (recetas == null || !recetas.Any(x => x.Id.Equals(receta.Id))) return BadRequest("La receta que intentas actualizar no existe.");
             
             _dbContext.Recetas.Update(receta);
@@ -60,10 +60,10 @@ namespace ElBarDePili.API.Controllers
         {
             if (id == null) return BadRequest("No se ha proporcionado ningún identificador de receta a eliminar.");
             
-            List<Receta> recetas = await _dbContext.Recetas.ToListAsync();
+            List<Recetas> recetas = await _dbContext.Recetas.ToListAsync();
             if (recetas == null || !recetas.Any(x => x.Id.Equals(id))) return BadRequest("La receta que intentas eliminar no existe.");
             
-            Receta receta = recetas.First(x => x.Id.Equals(id));
+            Recetas receta = recetas.First(x => x.Id.Equals(id));
             _dbContext.Recetas.Remove(receta);
             await _dbContext.SaveChangesAsync();
 
@@ -80,7 +80,7 @@ namespace ElBarDePili.API.Controllers
                 .Include(c => c.IdingredienteNavigation).ThenInclude(ci => ci.RecetasIngredientes).ToListAsync();
             if (recetasIngredientes == null || !recetasIngredientes.Any(x => x.Idreceta.Equals(id))) return BadRequest("La receta que intentas obtener no tiene ingredientes.");
 
-            List<Ingrediente> recetaIngredientes = recetasIngredientes.Where(x => x.Idreceta.Equals(id)).Select(x => x.IdingredienteNavigation).ToList();
+            List<Ingredientes> recetaIngredientes = recetasIngredientes.Where(x => x.Idreceta.Equals(id)).Select(x => x.IdingredienteNavigation).ToList();
             return Ok(recetaIngredientes);
         }
 

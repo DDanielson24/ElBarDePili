@@ -1,3 +1,4 @@
+using ElBarDePili.API.Middleware;
 using ElBarDePili.DataBase;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -10,8 +11,9 @@ namespace ElBarDePili.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Configuration.AddUserSecrets<Program>();
 
+            // Add services to the container.
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
@@ -25,16 +27,17 @@ namespace ElBarDePili.API
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            //{
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
+
+            app.UseMiddleware<SecurityMiddleware>();
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

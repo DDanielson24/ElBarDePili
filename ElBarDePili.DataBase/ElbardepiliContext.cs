@@ -15,21 +15,19 @@ public partial class ElbardepiliContext : DbContext
     {
     }
 
-    public virtual DbSet<Ingrediente> Ingredientes { get; set; }
+    public virtual DbSet<Ingredientes> Ingredientes { get; set; }
 
-    public virtual DbSet<Receta> Recetas { get; set; }
+    public virtual DbSet<Recetas> Recetas { get; set; }
 
     public virtual DbSet<RecetasIngredientes> RecetasIngredientes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder
-                .UseLazyLoadingProxies()
-                .UseSqlServer("Server=tcp:fd-frias.database.windows.net,1433;Initial Catalog=elbardepili;Persist Security Info=False;User ID=fd.frias;Password=P0rtale5;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+        => optionsBuilder.UseSqlServer("Server=tcp:fd-frias.database.windows.net,1433;Initial Catalog=elbardepili;Persist Security Info=False;User ID=fd.frias;Password=P0rtale5;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Ingrediente>(entity =>
+        modelBuilder.Entity<Ingredientes>(entity =>
         {
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("(newid())")
@@ -37,11 +35,13 @@ public partial class ElbardepiliContext : DbContext
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<Receta>(entity =>
+        modelBuilder.Entity<Recetas>(entity =>
         {
             entity.Property(e => e.Id)
                 .HasDefaultValueSql("(newid())")
                 .HasColumnName("ID");
+            entity.Property(e => e.Descripcion).HasMaxLength(50);
+            entity.Property(e => e.Imagen).HasMaxLength(50);
             entity.Property(e => e.Nombre).HasMaxLength(50);
         });
 

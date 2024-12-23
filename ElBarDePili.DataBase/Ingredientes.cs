@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace ElBarDePili.DataBase;
 
-public partial class Ingrediente
+public partial class Ingredientes
 {
     public Guid Id { get; set; }
 

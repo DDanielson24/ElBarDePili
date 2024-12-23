@@ -13,8 +13,8 @@ public partial class RecetasIngredientes
     public Guid Idingrediente { get; set; }
 
     [JsonIgnore]
-    public virtual Ingrediente IdingredienteNavigation { get; set; } = null!;
+    public virtual Ingredientes IdingredienteNavigation { get; set; } = null!;
 
     [JsonIgnore]
-    public virtual Receta IdrecetaNavigation { get; set; } = null!;
+    public virtual Recetas IdrecetaNavigation { get; set; } = null!;
 }
