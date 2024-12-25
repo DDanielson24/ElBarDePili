@@ -22,7 +22,10 @@ namespace ElBarDePili.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<ElbardepiliContext>();
+            builder.Services.AddDbContext<ElbardepiliContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("ElBarDePili"));
+            });
 
             var app = builder.Build();
 
