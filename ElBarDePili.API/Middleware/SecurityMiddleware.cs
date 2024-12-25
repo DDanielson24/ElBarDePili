@@ -13,26 +13,41 @@
 
         public async Task Invoke(HttpContext context)
         {
-            if (_configuration is null) return;
+            if (_configuration is null)
+            {
+                await ReturnMethod(context, "No se dispone del archivo de configuración");
+                return;
+            }
 
             string? apiKey = _configuration["APIKey"];
-            if (apiKey is null) return;
+            if (apiKey is null)
+            {
+                await ReturnMethod(context, "No se ha configurado la APIKey");
+                return;
+            }
 
             if (context.Request.Headers.TryGetValue("APIKey", out var extractedApiKey))
             {
                 if (!extractedApiKey.Equals(apiKey))
                 {
-                    context.Response.StatusCode = 401; //Unathorized
-                    await context.Response.WriteAsync("APIKey incorrecta");
+                    await ReturnMethod(context, "La APIKey proporcionada no es correcta");
                     return;
                 }
             }
             else
             {
-                context.Response.StatusCode = 401; //Unathorized
-                await context.Response.WriteAsync("APIKey incorrecta");
-                return;
+                await ReturnMethod(context, "No se ha proporcionado ninguna APIKey");
+                    return;
             }
+                
+
+            await _next(context);
+        }
+
+        public async Task ReturnMethod(HttpContext context, string response)
+        {
+            context.Response.StatusCode = 401; //Unathorized
+            await context.Response.WriteAsync(response);
         }
     }
 }
