@@ -74,6 +74,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\ElBarDePili.API.ClassLibraryAPI\ElBarDePili.API.ClassLibraryAPI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Views\Recetas\RecetasList.xaml.cs">
 	    <DependentUpon>RecetasList.xaml</DependentUpon>
 	  </Compile>

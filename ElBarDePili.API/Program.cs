@@ -40,7 +40,7 @@ namespace ElBarDePili.API
 
             app.UseMiddleware<SecurityMiddleware>();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
