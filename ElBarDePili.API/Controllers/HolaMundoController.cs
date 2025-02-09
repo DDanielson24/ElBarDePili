@@ -3,7 +3,6 @@
 namespace ElBarDePili.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class HolaMundoController : Controller
     {
         [HttpGet]

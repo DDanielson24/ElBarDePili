@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 namespace ElBarDePili.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class RecetasController : Controller
     {
         private readonly ElbardepiliContext _dbContext;
@@ -14,8 +13,10 @@ namespace ElBarDePili.API.Controllers
             _dbContext = dbContext;
         }
 
+        #region GET
+
         [HttpGet]
-        [Route("GetRecetas")]
+        [Route("Recetas")]
         public async Task<IActionResult> GetRecetas()
         {
             List<Recetas> recetas = await _dbContext.Recetas.ToListAsync();
@@ -24,95 +25,80 @@ namespace ElBarDePili.API.Controllers
             else return BadRequest("No se han obtenido recetas.");
         }
 
+        [HttpGet]
+        [Route("Receta/{id}")]
+        public async Task<IActionResult> GetReceta(Guid? id)
+        {
+            if (id == null) return BadRequest("No se ha proporcionado ningún identificador de receta.");
+            
+            Recetas? receta = await _dbContext.Recetas.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            
+            if (receta != null) return Ok(receta);
+            else return NotFound("No se ha encontrado ninguna receta con el identificador proporcionado.");
+        }
+
+        #endregion
+
+        #region POST
+
         [HttpPost]
-        [Route("AddReceta")]
+        [Route("Receta")]
         public async Task<IActionResult> AddReceta([FromBody] Recetas? receta)
         {
             if (receta == null) return BadRequest("No se ha proporcionado ninguna receta a añadir.");
 
-            List<Recetas> recetas = await _dbContext.Recetas.ToListAsync();
-            if (recetas != null && recetas.Any(x => x.Id.Equals(receta.Id))) return BadRequest("La receta que intentas añadir ya existe.");
+            if (await _dbContext.Recetas.AnyAsync(x => x.Id.Equals(receta.Id))) return BadRequest("La receta que intentas añadir ya existe.");
 
             await _dbContext.Recetas.AddAsync(receta);
             await _dbContext.SaveChangesAsync();
 
-            return Ok();
+            return Ok(receta);
         }
 
-        [HttpPost]
-        [Route("UpdateReceta")]
-        public async Task<IActionResult> UpdateReceta([FromBody] Recetas? receta)
+        #endregion
+
+        #region PUT
+
+        [HttpPut]
+        [Route("Receta/{id}")]
+        public async Task<IActionResult> UpdateReceta(Guid? id, [FromBody] Recetas? receta)
         {
-            if (receta == null) return BadRequest("No se ha proporcionado ninguna receta a actualizar.");
+            if (id == null || receta == null) return BadRequest("No se ha proporcionado ningún ID o receta a actualizar.");
             
-            List<Recetas> recetas = await _dbContext.Recetas.ToListAsync();
-            if (recetas == null || !recetas.Any(x => x.Id.Equals(receta.Id))) return BadRequest("La receta que intentas actualizar no existe.");
-            
+            Recetas? recetaAActualizar = await _dbContext.Recetas.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            if (recetaAActualizar == null) return NotFound("La receta que intentas actualizar no existe.");
+
+            recetaAActualizar.Nombre = receta.Nombre;
+            recetaAActualizar.Descripcion = receta.Descripcion;
+            recetaAActualizar.Imagen = receta.Imagen;
+            recetaAActualizar.Duracion = receta.Duracion;
+            recetaAActualizar.Dificultad = receta.Dificultad;
+
             _dbContext.Recetas.Update(receta);
             await _dbContext.SaveChangesAsync();
 
-            return Ok();
+            return Ok(recetaAActualizar);
         }
 
-        [HttpPost]
-        [Route("DeleteReceta")]
-        public async Task<IActionResult> DeleteReceta([FromBody] Guid? id)
+        #endregion
+
+        #region DELETE
+
+        [HttpDelete]
+        [Route("Receta/{id}")]
+        public async Task<IActionResult> DeleteReceta(Guid? id)
         {
             if (id == null) return BadRequest("No se ha proporcionado ningún identificador de receta a eliminar.");
             
-            List<Recetas> recetas = await _dbContext.Recetas.ToListAsync();
-            if (recetas == null || !recetas.Any(x => x.Id.Equals(id))) return BadRequest("La receta que intentas eliminar no existe.");
+            Recetas? receta = await _dbContext.Recetas.FirstOrDefaultAsync(x => x.Id.Equals(id));
+            if (receta == null) return NotFound("La receta que intentas eliminar no existe.");
             
-            Recetas receta = recetas.First(x => x.Id.Equals(id));
             _dbContext.Recetas.Remove(receta);
             await _dbContext.SaveChangesAsync();
 
             return Ok();
         }
 
-        [HttpPost]
-        [Route("GetRecetaIngredientes")]
-        public async Task<IActionResult> GetRecetaIngredientes([FromBody] Guid? id)
-        {
-            if (id == null) return BadRequest("No se ha proporcionado ningún identificador de receta para obtener sus ingredientes.");
-
-            List<RecetasIngredientes> recetasIngredientes = await _dbContext.RecetasIngredientes
-                .Include(c => c.IdingredienteNavigation).ThenInclude(ci => ci.RecetasIngredientes).ToListAsync();
-            if (recetasIngredientes == null || !recetasIngredientes.Any(x => x.Idreceta.Equals(id))) return BadRequest("La receta que intentas obtener no tiene ingredientes.");
-
-            List<Ingredientes> recetaIngredientes = recetasIngredientes.Where(x => x.Idreceta.Equals(id)).Select(x => x.IdingredienteNavigation).ToList();
-            return Ok(recetaIngredientes);
-        }
-
-        [HttpPost]
-        [Route("AddRecetaIngrediente")]
-        public async Task<IActionResult> AddRecetaIngrediente([FromBody] RecetasIngredientes? recetasIngrediente)
-        {
-           if (recetasIngrediente == null) return BadRequest("No se ha proporcionado ningún ingrediente a añadir a la receta.");
-
-            List<RecetasIngredientes> recetasIngredientes = await _dbContext.RecetasIngredientes.ToListAsync();
-            if (recetasIngredientes != null && recetasIngredientes.Any(x => x.Id.Equals(recetasIngrediente.Id))) return BadRequest("El ingrediente que intentas añadir a la receta ya existe.");
-            
-            await _dbContext.RecetasIngredientes.AddAsync(recetasIngrediente);
-            await _dbContext.SaveChangesAsync();
-
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("DeleteRecetaIngrediente")]
-        public async Task<IActionResult> DeleteRecetaIngrediente([FromBody] Guid? id)
-        {
-            if (id == null) return BadRequest("No se ha proporcionado ningún identificador de receta-ingrediente.");
-
-            List<RecetasIngredientes> recetasIngredientes = await _dbContext.RecetasIngredientes.ToListAsync();
-            if (recetasIngredientes == null || !recetasIngredientes.Any(x => x.Id.Equals(id))) return BadRequest("El ingrediente que intentas eliminar de la receta no existe.");
-
-            RecetasIngredientes recetaIngrediente = recetasIngredientes.First(x => x.Id.Equals(id));
-            _dbContext.RecetasIngredientes.Remove(recetaIngrediente);
-            await _dbContext.SaveChangesAsync();
-
-            return Ok();
-        }
+        #endregion
     }
 }
