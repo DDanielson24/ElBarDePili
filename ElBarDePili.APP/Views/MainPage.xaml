@@ -22,8 +22,8 @@
 
             <Button Text="PruebaAPI"
                     Clicked="Button_Clicked"/>
-            
-            
+
+            <Label Text=""/>
 
         </VerticalStackLayout>
     </ScrollView>

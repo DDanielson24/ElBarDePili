@@ -68,7 +68,7 @@
                         <DataTemplate x:DataType="viewmodel:IngredientesSeleccion">
                             <Grid ColumnDefinitions="*,*" RowSpacing="10">
                                 <Label Grid.Column="0" 
-                                       Text="{Binding Ingrediente.Nombre}"
+                                       Text=""
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="Center"/>
                                 <CheckBox Grid.Column="1" IsChecked="{Binding Seleccionado}"/>

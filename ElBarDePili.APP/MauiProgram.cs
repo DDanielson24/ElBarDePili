@@ -1,15 +1,14 @@
-﻿using ElBarDePili.Database;
+﻿using DevExpress.Maui;
 using ElBarDePili.ViewModels;
+using ElBarDePili.ViewModels.Calculador;
 using ElBarDePili.ViewModels.Ingredientes;
 using ElBarDePili.ViewModels.Recetas;
 using ElBarDePili.Views;
 using ElBarDePili.Views.Calculador;
-using ElBarDePili.Views.Recetas;
 using ElBarDePili.Views.Ingredientes;
-using Microsoft.Extensions.DependencyInjection;
+using ElBarDePili.Views.Recetas;
 using Microsoft.Extensions.Logging;
-using ElBarDePili.ViewModels.Calculador;
-using DevExpress.Maui;
+using ElBarDePili.API.ClassLibraryAPI;
 
 namespace ElBarDePili
 {
@@ -30,28 +29,32 @@ namespace ElBarDePili
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddSingleton<ElBarDePiliDatabase>();
-
+            /* === VIEWS === */
+            
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<MainPageViewModel>();
-
             builder.Services.AddSingleton<Calculador>();
-            builder.Services.AddSingleton<CalculadorViewModel>();
-
             builder.Services.AddSingleton<RecetasList>();
-            builder.Services.AddSingleton<RecetasViewModel>();
+            builder.Services.AddSingleton<IngredientesList>();
 
             builder.Services.AddTransient<RecetasDetails>();
-            builder.Services.AddTransient<RecetasDetailsViewModel>();
-
             builder.Services.AddTransient<RecetasEditing>();
-            builder.Services.AddTransient<RecetasEditingViewModel>();
-
-            builder.Services.AddSingleton<IngredientesList>();
-            builder.Services.AddSingleton<IngredientesViewModel>();
-
             builder.Services.AddTransient<AniadirIngrediente>();
+
+            /* === VIEWMODELS === */
+
+            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<CalculadorViewModel>();
+            builder.Services.AddSingleton<RecetasViewModel>();
+            builder.Services.AddSingleton<IngredientesViewModel>();
+            
+            builder.Services.AddTransient<RecetasDetailsViewModel>();
+            builder.Services.AddTransient<RecetasEditingViewModel>();
             builder.Services.AddTransient<AniadirIngredienteViewModel>();
+
+            /* === CLASSLIBRARYAPI === */
+            
+            builder.Services.AddSingleton<ElBarDePiliAPI>();
+
 
 #if DEBUG
             builder.Logging.AddDebug();

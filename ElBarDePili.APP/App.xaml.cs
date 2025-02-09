@@ -1,7 +1,4 @@
-﻿using ElBarDePili.Database;
-using ElBarDePili.Models;
-
-namespace ElBarDePili
+﻿namespace ElBarDePili
 {
     public partial class App : Application
     {

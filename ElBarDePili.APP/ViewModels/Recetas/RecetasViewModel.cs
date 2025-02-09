@@ -1,34 +1,24 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using ElBarDePili.Database;
-using ElBarDePili.Models;
 using ElBarDePili.Views.Recetas;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ElBarDePili.ViewModels.Recetas
 {
     public partial class RecetasViewModel : BaseViewModel
     {        
-        private readonly ElBarDePiliDatabase _elBarDePiliDatabase;
-
         [ObservableProperty]
-        private ObservableCollection<Receta> _recetas = new ();
+        private ObservableCollection<RecetaViewModel> _recetas = new ();
 
-        public RecetasViewModel(ElBarDePiliDatabase elBarDePiliDatabase)
+        public RecetasViewModel()
         {
-            _elBarDePiliDatabase = elBarDePiliDatabase;
             Title = "Recetas";
         }
 
         [RelayCommand]
         private async Task GetRecetasAsync()
         {
-            Recetas = new ObservableCollection<Receta>(await _elBarDePiliDatabase.GetAllWithChildrenAsync<Receta>());
+            Recetas = new ObservableCollection<RecetaViewModel>();
 
             if (Connectivity.NetworkAccess != NetworkAccess.Internet)
             {
@@ -56,18 +46,18 @@ namespace ElBarDePili.ViewModels.Recetas
         }
 
         [RelayCommand]
-        private async Task GoToRecetasDetails(Receta receta)
+        private async Task GoToRecetasDetails(RecetaViewModel receta)
         {
-            if (receta == null)
-                return;
+            //if (receta == null)
+            //    return;
 
-            var ingredientes = await _elBarDePiliDatabase.GetAllWithChildrenAsync<Ingrediente>();
+            //var ingredientes = await _elBarDePiliDatabase.GetAllWithChildrenAsync<Ingrediente>();
 
-            await Shell.Current.GoToAsync("Recetas/" + nameof(RecetasDetails), true,
-                new Dictionary<string, object>
-                {
-                    {"Receta", receta}
-                });
+            //await Shell.Current.GoToAsync("Recetas/" + nameof(RecetasDetails), true,
+            //    new Dictionary<string, object>
+            //    {
+            //        {"Receta", receta}
+            //    });
         }
 
         [RelayCommand]
@@ -76,7 +66,7 @@ namespace ElBarDePili.ViewModels.Recetas
             await Shell.Current.GoToAsync("Recetas/" + nameof(RecetasEditing), true,
                 new Dictionary<string, object>
                 {
-                    {"Receta", new Receta()}
+                    {"Receta", new RecetaViewModel()}
                 });
         }
     }

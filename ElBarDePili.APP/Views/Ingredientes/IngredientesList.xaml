@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:model="clr-namespace:ElBarDePili.Models"
              xmlns:viewmodel="clr-namespace:ElBarDePili.ViewModels.Ingredientes"
              x:Class="ElBarDePili.Views.Ingredientes.IngredientesList"
              x:DataType="viewmodel:IngredientesViewModel"
@@ -19,7 +18,7 @@
 
             <CollectionView.ItemTemplate>
 
-                <DataTemplate x:DataType="model:Ingrediente">
+                <DataTemplate x:DataType="viewmodel:IngredienteViewModel">
 
                         <SwipeView>
                             <SwipeView.RightItems>
@@ -33,7 +32,7 @@
                                    Grid.Column="0" 
                                    VerticalTextAlignment="Center"
                                    HorizontalTextAlignment="Center"/>
-                                <CheckBox Grid.Column="1" IsChecked="{Binding SeDispone}"/>
+                                <CheckBox Grid.Column="1" IsChecked="{Binding Disponibilidad}"/>
                             </Grid>
                         </SwipeView>
 
